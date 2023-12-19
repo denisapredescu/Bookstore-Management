@@ -17,9 +17,6 @@ public class Role {
     @NotEmpty(message = "The role name cannot be blank!")
     private String role;
 
-//    @OneToMany(targetEntity = User.class)
-//    private List<User> users;
-
     public Role() {
     }
 

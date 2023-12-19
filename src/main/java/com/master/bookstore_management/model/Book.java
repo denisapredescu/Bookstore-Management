@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.List;
 import java.util.Objects;
@@ -44,32 +43,13 @@ public class Book {
 
     @ManyToOne(targetEntity = Author.class)
     @PrimaryKeyJoinColumn(name = "author_id")
-//    @JoinTable(name = "authors")
     private Author author;
 
     @ManyToMany(targetEntity = Category.class)
     private List<Category> bookCategories = null;
 
-//    @OneToMany(targetEntity = BookBasket.class)
-//    @PrimaryKeyJoinColumn(name = "book_basket_id")
-////    @JoinTable(name = "authors")
-//    private List<BookBasket> bookBaskets = null;
-
     public Book() {
     }
-
-//    public Book(int id, String name, double price, int year, int copies, int volume, String series_name, Author author, List<Category> bookCategories, List<BookBasket> bookBaskets) {
-//        this.id = id;
-//        this.name = name;
-//        this.price = price;
-//        this.year = year;
-//        this.copies = copies;
-//        this.volume = volume;
-//        this.series_name = series_name;
-//        this.author = author;
-//        this.bookCategories = bookCategories;
-//        this.bookBaskets = bookBaskets;
-//    }
 
     public Book(int id,
                 String name,
@@ -161,40 +141,31 @@ public class Book {
         this.bookCategories = bookCategories;
     }
 
-//    public List<BookBasket> getBookBaskets() {
-//        return bookBaskets;
-//    }
-//
-//    public void setBookBaskets(List<BookBasket> bookBaskets) {
-//        this.bookBaskets = bookBaskets;
-//    }
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", year=" + year +
+                ", copies=" + copies +
+                ", volume=" + volume +
+                ", series_name='" + series_name + '\'' +
+                ", author=" + author +
+                ", bookCategories=" + bookCategories +
+                '}';
+    }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Book book = (Book) o;
-//        return id == book.id && Double.compare(price, book.price) == 0 && year == book.year && copies == book.copies && volume == book.volume && Objects.equals(name, book.name) && Objects.equals(series_name, book.series_name) && Objects.equals(author, book.author) && Objects.equals(bookCategories, book.bookCategories) && Objects.equals(bookBaskets, book.bookBaskets);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name, price, year, copies, volume, series_name, author, bookCategories, bookBaskets);
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id && Double.compare(price, book.price) == 0 && year == book.year && copies == book.copies && volume == book.volume && Objects.equals(name, book.name) && Objects.equals(series_name, book.series_name) && Objects.equals(author, book.author) && Objects.equals(bookCategories, book.bookCategories);
+    }
 
-//    @Override
-//    public String toString() {
-//        return "Book{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", price=" + price +
-//                ", year=" + year +
-//                ", copies=" + copies +
-//                ", volume=" + volume +
-//                ", series_name='" + series_name + '\'' +
-//                ", author=" + author +
-//                ", bookCategories=" + bookCategories +
-//                ", bookBaskets=" + bookBaskets +
-//                '}';
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price, year, copies, volume, series_name, author, bookCategories);
+    }
 }

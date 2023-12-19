@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "authors")
@@ -22,19 +23,8 @@ public class Author {
     @Column(name = "nationality")
     private String nationality;
 
-//    @OneToMany(targetEntity = Book.class)
-//    private List<Book> books;
-
     public Author() {
     }
-
-//    public Author(Integer id, String firstName, String lastName, String nationality, List<Book> books) {
-//        this.id = id;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.nationality = nationality;
-//        this.books = books;
-//    }
 
     public Author(Integer id, String firstName, String lastName, String nationality) {
         this.id = id;
@@ -73,5 +63,28 @@ public class Author {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", nationality='" + nationality + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(id, author.id) && Objects.equals(firstName, author.firstName) && Objects.equals(lastName, author.lastName) && Objects.equals(nationality, author.nationality);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, nationality);
     }
 }

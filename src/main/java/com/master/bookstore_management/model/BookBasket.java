@@ -21,12 +21,10 @@ public class BookBasket {
 
     @ManyToOne(targetEntity = Book.class)
     @PrimaryKeyJoinColumn(name = "book_id")
-//    @JoinTable(name = "authors")
     private Book book;
 
     @ManyToOne(targetEntity = Basket.class)
     @PrimaryKeyJoinColumn(name = "basket_id")
-//    @JoinTable(name = "authors")
     private Basket basket;
 
     public BookBasket() {
