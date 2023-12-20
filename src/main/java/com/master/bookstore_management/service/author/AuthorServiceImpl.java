@@ -15,7 +15,7 @@ public class AuthorServiceImpl implements AuthorService{
         this.authorRepository = authorRepository;
     }
 
-//    public List<Author> getAuthors() {
-//        return authorRepository.getAuthors();
-//    }
+    public List<Author> getAuthors() {
+        return authorRepository.getAuthors();
+    }
 }
