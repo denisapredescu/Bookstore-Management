@@ -31,7 +31,7 @@ public class SwaggerConfiguration {
         License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
         Info info = new Info()
-                .title("Event ticket reservation API")
+                .title("Bookstore Management API")
                 .version("1.0")
                 .contact(contact)
                 .description("This API exposes endpoints to reserve event tickets.").termsOfService("https://www.example.com/terms")

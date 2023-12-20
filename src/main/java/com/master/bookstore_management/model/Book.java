@@ -41,6 +41,9 @@ public class Book {
     @Column(name = "series_name")
     private String series_name = null;
 
+    @Column(name = "is_deleted")
+    private Boolean is_deleted = false;
+
     @ManyToOne(targetEntity = Author.class)
     @PrimaryKeyJoinColumn(name = "author_id")
     private Author author;
@@ -56,6 +59,7 @@ public class Book {
                 double price,
                 int year,
                 int copies,
+                Boolean is_deleted,
                 int volume,
                 String series_name,
                 Author author) {
@@ -64,6 +68,7 @@ public class Book {
         this.price = price;
         this.year = year;
         this.copies = copies;
+        this.is_deleted = is_deleted;
         this.volume = volume;
         this.series_name = series_name;
         this.author = author;
@@ -109,6 +114,14 @@ public class Book {
         this.copies = copies;
     }
 
+    public Boolean getIs_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(Boolean is_deleted) {
+        this.is_deleted = is_deleted;
+    }
+
     public int getVolume() {
         return volume;
     }
@@ -151,6 +164,7 @@ public class Book {
                 ", copies=" + copies +
                 ", volume=" + volume +
                 ", series_name='" + series_name + '\'' +
+                ", is_deleted=" + is_deleted +
                 ", author=" + author +
                 ", bookCategories=" + bookCategories +
                 '}';
@@ -161,11 +175,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && Double.compare(price, book.price) == 0 && year == book.year && copies == book.copies && volume == book.volume && Objects.equals(name, book.name) && Objects.equals(series_name, book.series_name) && Objects.equals(author, book.author) && Objects.equals(bookCategories, book.bookCategories);
+        return id == book.id && Double.compare(price, book.price) == 0 && year == book.year && copies == book.copies && volume == book.volume && Objects.equals(name, book.name) && Objects.equals(series_name, book.series_name) && Objects.equals(is_deleted, book.is_deleted) && Objects.equals(author, book.author) && Objects.equals(bookCategories, book.bookCategories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, year, copies, volume, series_name, author, bookCategories);
+        return Objects.hash(id, name, price, year, copies, volume, series_name, is_deleted, author, bookCategories);
     }
 }
