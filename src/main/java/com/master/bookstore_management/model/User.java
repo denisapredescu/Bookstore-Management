@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Locale;
 import java.util.Objects;
 
 @Entity
@@ -16,10 +17,10 @@ public class User {
     private Integer id;
 
     @Column(name = "first_name")
-    private String firstName;
+    private String firstName = "";
 
     @Column(name = "last_name")
-    private String lastName;
+    private String lastName = "";
 
     @Column(name = "birthday")
     private String birthday;
@@ -29,23 +30,31 @@ public class User {
     private String email;
 
     @Column(name = "password")
+    @NotEmpty(message = "The password cannot be blank!")
     private String password;
 
-    @ManyToOne(targetEntity = Role.class)
-    @NotNull
-    @PrimaryKeyJoinColumn(name = "role_id")
-    private Role role;
+//    @ManyToOne(targetEntity = Role.class)
+//    @NotNull
+//    @PrimaryKeyJoinColumn(name = "role_id")
+//    private Role role;
+
+    @Column(name = "role")
+    @NotEmpty(message = "The role name cannot be blank!")
+    private String role;
+
 
     public User() {
     }
 
-    public User(Integer id, String firstName, String lastName, String birthday, String email, Role role) {
+    public User(Integer id, String firstName, String lastName, String birthday, String email, String password, String role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
         this.email = email;
-        this.role = role;
+        this.password = password;
+        this.role = role.toUpperCase(Locale.ENGLISH);
+        System.out.println(this.role);
     }
 
     public Integer getId() {
@@ -88,12 +97,20 @@ public class User {
         this.email = email;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRole(String role) {
+        this.role = role.toUpperCase(Locale.ENGLISH);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -101,12 +118,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(birthday, user.birthday) && Objects.equals(email, user.email) && Objects.equals(role, user.role);
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(birthday, user.birthday) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, birthday, email, role);
+        return Objects.hash(id, firstName, lastName, birthday, email, password, role);
     }
 
     @Override
@@ -117,7 +134,8 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", email='" + email + '\'' +
-                ", role=" + role +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

@@ -1,20 +1,23 @@
 package com.master.bookstore_management.dto;
 
 public class UserResponse {
-
     String email;
-    String role;
+    String token;
 
-    public UserResponse(String email, String role) {
+    public UserResponse(String email, String token) {
         this.email = email;
-        this.role = role;
+        this.token = token;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getRole() {
-        return role;
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

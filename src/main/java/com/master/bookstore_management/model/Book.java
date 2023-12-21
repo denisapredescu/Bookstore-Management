@@ -24,7 +24,7 @@ public class Book {
     @Min(value = 0)
 //    @NotEmpty(message = "The price cannot be blank!")
 //    @NotNull
-    private int price;
+    private double price;
 
     @Column(name = "year")
     @Min(value = 0)
@@ -52,6 +52,17 @@ public class Book {
     private List<Category> bookCategories = null;
 
     public Book() {
+    }
+
+    public Book(int id, String name, double price, int year, int copies, int volume, String series_name, Boolean is_deleted) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.year = year;
+        this.copies = copies;
+        this.volume = volume;
+        this.series_name = series_name;
+        this.is_deleted = is_deleted;
     }
 
     public Book(int id,
@@ -90,11 +101,11 @@ public class Book {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

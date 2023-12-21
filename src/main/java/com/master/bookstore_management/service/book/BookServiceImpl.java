@@ -6,6 +6,8 @@ import com.master.bookstore_management.model.Category;
 import com.master.bookstore_management.repository.author.AuthorRepositoryJPA;
 import com.master.bookstore_management.repository.book.BookRepositoryJPA;
 import com.master.bookstore_management.repository.category.CategoryRepositoryJPA;
+import com.master.bookstore_management.token.JwtUtil;
+import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +26,10 @@ public class BookServiceImpl implements BookService {
         this.categoryRepository = categoryRepository;
     }
 
+    @Transactional
     @Override
     public List<Book> getBooks(String token) {
-        verifyUser(token);
+        JwtUtil.verifyAdmin(token);
         return bookRepository.findAll();
     }
 
@@ -45,18 +48,23 @@ public class BookServiceImpl implements BookService {
         return bookRepository.getBooksByCategory(category);
     }
 
+    @Transactional
     @Override
     public Book addBook(String token, Book newBook) {
-        verifyUser(token);
+        System.out.println(token);
+        JwtUtil.verifyAdmin(token);
         Author author = null;
         List<Category> categories = new ArrayList<>();
 
         if (newBook.getAuthor() != null) {
             author = authorRepository.save(newBook.getAuthor());
         }
-        for (Category category:
-                newBook.getBookCategories()) {
-            categories.add(categoryRepository.save(category));
+
+        if (newBook.getBookCategories() != null) {
+            for (Category category:
+                    newBook.getBookCategories()) {
+                categories.add(categoryRepository.save(category));
+            }
         }
 
         Book book = bookRepository.save(newBook);
@@ -67,9 +75,10 @@ public class BookServiceImpl implements BookService {
         return bookRepository.save(book);
     }
 
+    @Transactional
     @Override
     public Book updateBook(String token, Book bookToUpdate, Integer id) {
-        verifyUser(token);
+        JwtUtil.verifyAdmin(token);
         Book book = bookRepository.findById(id).orElseThrow();
         book.setName(bookToUpdate.getName());
         book.setIs_deleted(bookToUpdate.getIs_deleted());
@@ -83,17 +92,14 @@ public class BookServiceImpl implements BookService {
         return bookRepository.save(book);
     }
 
+    @Transactional
     @Override
     public void deleteBook(String token, Integer id) {
-        verifyUser(token);
+        JwtUtil.verifyAdmin(token);
         Book book = bookRepository.findById(id).orElseThrow();
         book.setIs_deleted(true);
         bookRepository.save(book);
     }
 
-    private static void verifyUser(String token) {
-        if (token == null || Strings.isBlank(token)){
-            throw new RuntimeException("User not logged in");
-        }
-    }
+
 }
