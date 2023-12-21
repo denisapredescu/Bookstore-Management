@@ -11,16 +11,16 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.List;
 
 @Primary
-public interface BookRepositoryJPA extends JpaRepository<Book, Integer>, BookRepository {
-    @Override
+public interface BookRepositoryJPA extends JpaRepository<Book, Integer> {
+//    @Override
     @Query("SELECT b FROM Book b WHERE b.is_deleted = false")
     List<Book> getAvailableBooks();
 
-    @Override
+//    @Override
     @Query("SELECT DISTINCT b FROM Book b JOIN b.bookCategories c WHERE c.name = :category AND b.is_deleted = false")
     List<Book> getBooksByCategory(String category);
 
-    @Override
+//    @Override
     @Query("SELECT DISTINCT b FROM Book b JOIN b.author a WHERE a.firstName = :firstName AND a.lastName = :lastName AND b.is_deleted = false")
     List<Book> getBooksByAuthor(String firstName, String lastName);
 }

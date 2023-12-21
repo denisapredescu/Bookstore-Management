@@ -22,9 +22,9 @@ public class Book {
 
     @Column(name = "price")
     @Min(value = 0)
-    @NotEmpty(message = "The price cannot be blank!")
-    @NotNull
-    private double price;
+//    @NotEmpty(message = "The price cannot be blank!")
+//    @NotNull
+    private int price;
 
     @Column(name = "year")
     @Min(value = 0)
@@ -56,7 +56,7 @@ public class Book {
 
     public Book(int id,
                 String name,
-                double price,
+                int price,
                 int year,
                 int copies,
                 Boolean is_deleted,
@@ -90,11 +90,11 @@ public class Book {
         this.name = name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

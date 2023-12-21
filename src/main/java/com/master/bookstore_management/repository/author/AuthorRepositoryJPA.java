@@ -8,10 +8,9 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
 
-@Primary
-@NoRepositoryBean
-public interface AuthorRepositoryJPA extends JpaRepository<Author, Integer>, AuthorRepository {
-    @Override
+
+public interface AuthorRepositoryJPA extends JpaRepository<Author, Integer> {
+
     @Query("SELECT a FROM Author a")
     List<Author> getAuthors();
 }

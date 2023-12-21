@@ -28,6 +28,9 @@ public class User {
     @NotEmpty(message = "The email cannot be blank!")
     private String email;
 
+    @Column(name = "password")
+    private String password;
+
     @ManyToOne(targetEntity = Role.class)
     @NotNull
     @PrimaryKeyJoinColumn(name = "role_id")

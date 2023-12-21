@@ -2,19 +2,26 @@ package com.master.bookstore_management.service.book;
 
 import com.master.bookstore_management.model.Author;
 import com.master.bookstore_management.model.Book;
-import com.master.bookstore_management.repository.book.BookRepository;
+import com.master.bookstore_management.model.Category;
+import com.master.bookstore_management.repository.author.AuthorRepositoryJPA;
 import com.master.bookstore_management.repository.book.BookRepositoryJPA;
+import com.master.bookstore_management.repository.category.CategoryRepositoryJPA;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
-    private final BookRepository bookRepository;
+    private final BookRepositoryJPA bookRepository;
+    private final AuthorRepositoryJPA authorRepository;
+    private final CategoryRepositoryJPA categoryRepository;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepositoryJPA bookRepository, AuthorRepositoryJPA authorRepository, CategoryRepositoryJPA categoryRepository) {
         this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -41,7 +48,23 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book addBook(String token, Book newBook) {
         verifyUser(token);
-        return bookRepository.save(newBook);
+        Author author = null;
+        List<Category> categories = new ArrayList<>();
+
+        if (newBook.getAuthor() != null) {
+            author = authorRepository.save(newBook.getAuthor());
+        }
+        for (Category category:
+                newBook.getBookCategories()) {
+            categories.add(categoryRepository.save(category));
+        }
+
+        Book book = bookRepository.save(newBook);
+
+        book.setAuthor(author);
+        book.setBookCategories(categories);
+
+        return bookRepository.save(book);
     }
 
     @Override
@@ -55,6 +78,7 @@ public class BookServiceImpl implements BookService {
         book.setPrice(bookToUpdate.getPrice());
         book.setVolume(bookToUpdate.getVolume());
         book.setYear(bookToUpdate.getYear());
+        book.setAuthor(bookToUpdate.getAuthor());
 
         return bookRepository.save(book);
     }

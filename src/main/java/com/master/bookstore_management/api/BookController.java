@@ -19,7 +19,8 @@ public class BookController {
 
     @PostMapping("/add")
     public ResponseEntity<Book> addBook(@RequestHeader(name = "userToken") String token,
-                                        @Valid @RequestBody Book newBook){
+                                       @RequestBody Book newBook){
+        System.out.println("sdasds");
         return ResponseEntity.ok(bookService.addBook(token, newBook));
     }
 
@@ -47,13 +48,12 @@ public class BookController {
         return ResponseEntity.ok(bookService.getAvailableBooks());
     }
 
-    @GetMapping("/getBooksByAuthor")
+    @GetMapping("/getBooksByAuthor/{firstname}/{lastName}")
     public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable String firstname, @PathVariable String lastName){
         return ResponseEntity.ok(bookService.getBooksByAuthor(firstname, lastName));
     }
-    @GetMapping("/getBooksByCategory")
-    public ResponseEntity<List<Book>> getBooksByCategory(@PathVariable String categoryy){
-        return ResponseEntity.ok(bookService.getBooksByCategory(categoryy));
+    @GetMapping("/getBooksByCategory/{category}")
+    public ResponseEntity<List<Book>> getBooksByCategory(@PathVariable String category){
+        return ResponseEntity.ok(bookService.getBooksByCategory(category));
     }
-
 }
