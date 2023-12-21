@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,16 +24,12 @@ public class Book {
     @Column(name = "price")
     @Min(value = 0)
 //    @NotEmpty(message = "The price cannot be blank!")
-//    @NotNull
-    private double price;
+    @NotNull
+    private int price;
 
     @Column(name = "year")
     @Min(value = 0)
     private int year;
-
-    @Column(name = "copies")
-    @Min(value = 0)
-    private int copies;
 
     @Column(name = "volume")
     @Min(value = 0)
@@ -54,12 +51,11 @@ public class Book {
     public Book() {
     }
 
-    public Book(int id, String name, double price, int year, int copies, int volume, String series_name, Boolean is_deleted) {
+    public Book(int id, String name, int price, int year, int volume, String series_name, Boolean is_deleted) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.year = year;
-        this.copies = copies;
         this.volume = volume;
         this.series_name = series_name;
         this.is_deleted = is_deleted;
@@ -69,7 +65,6 @@ public class Book {
                 String name,
                 int price,
                 int year,
-                int copies,
                 Boolean is_deleted,
                 int volume,
                 String series_name,
@@ -78,7 +73,6 @@ public class Book {
         this.name = name;
         this.price = price;
         this.year = year;
-        this.copies = copies;
         this.is_deleted = is_deleted;
         this.volume = volume;
         this.series_name = series_name;
@@ -101,11 +95,11 @@ public class Book {
         this.name = name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -115,14 +109,6 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    public int getCopies() {
-        return copies;
-    }
-
-    public void setCopies(int copies) {
-        this.copies = copies;
     }
 
     public Boolean getIs_deleted() {
@@ -172,7 +158,6 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", year=" + year +
-                ", copies=" + copies +
                 ", volume=" + volume +
                 ", series_name='" + series_name + '\'' +
                 ", is_deleted=" + is_deleted +
@@ -186,11 +171,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && Double.compare(price, book.price) == 0 && year == book.year && copies == book.copies && volume == book.volume && Objects.equals(name, book.name) && Objects.equals(series_name, book.series_name) && Objects.equals(is_deleted, book.is_deleted) && Objects.equals(author, book.author) && Objects.equals(bookCategories, book.bookCategories);
+        return id == book.id && Double.compare(price, book.price) == 0 && year == book.year && volume == book.volume && Objects.equals(name, book.name) && Objects.equals(series_name, book.series_name) && Objects.equals(is_deleted, book.is_deleted) && Objects.equals(author, book.author) && Objects.equals(bookCategories, book.bookCategories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, year, copies, volume, series_name, is_deleted, author, bookCategories);
+        return Objects.hash(id, name, price, year, volume, series_name, is_deleted, author, bookCategories);
     }
 }

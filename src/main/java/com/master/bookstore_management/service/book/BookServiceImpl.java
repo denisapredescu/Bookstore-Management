@@ -82,7 +82,6 @@ public class BookServiceImpl implements BookService {
         Book book = bookRepository.findById(id).orElseThrow();
         book.setName(bookToUpdate.getName());
         book.setIs_deleted(bookToUpdate.getIs_deleted());
-        book.setCopies(bookToUpdate.getCopies());
         book.setSeries_name(bookToUpdate.getSeries_name());
         book.setPrice(bookToUpdate.getPrice());
         book.setVolume(bookToUpdate.getVolume());

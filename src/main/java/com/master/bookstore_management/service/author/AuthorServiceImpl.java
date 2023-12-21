@@ -1,8 +1,8 @@
 package com.master.bookstore_management.service.author;
 
 import com.master.bookstore_management.model.Author;
-import com.master.bookstore_management.repository.author.AuthorRepository;
 import com.master.bookstore_management.repository.author.AuthorRepositoryJPA;
+import com.master.bookstore_management.token.JwtUtil;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +18,13 @@ public class AuthorServiceImpl implements AuthorService{
 
     @Override
     public Author addAuthor(String token, Author newAuthor) {
-        verifyUser(token);
+        JwtUtil.verifyAdmin(token);
         return authorRepository.save(newAuthor);
     }
 
     @Override
     public Author updateAuthor(String token, Author newAuthor, int id) {
-        verifyUser(token);
+        JwtUtil.verifyAdmin(token);
         Author author = authorRepository.findById(id).orElseThrow();
         author.setFirstName(newAuthor.getFirstName());
         author.setLastName(newAuthor.getLastName());
@@ -34,19 +34,13 @@ public class AuthorServiceImpl implements AuthorService{
 
     @Override
     public void deleteAuthor(String token, int id) {
-        verifyUser(token);
+        JwtUtil.verifyAdmin(token);
         authorRepository.deleteById(id);
     }
 
     @Override
-    public List<Author> getAuthors() {
+    public List<Author> getAuthors(String token) {
+        JwtUtil.verifyAdmin(token);
         return authorRepository.getAuthors();
     }
-
-    private static void verifyUser(String token) {
-        if (token == null || Strings.isBlank(token)){
-            throw new RuntimeException("User not logged in");
-        }
-    }
-
 }

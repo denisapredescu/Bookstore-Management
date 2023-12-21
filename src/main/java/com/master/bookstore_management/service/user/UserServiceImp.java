@@ -1,10 +1,9 @@
 package com.master.bookstore_management.service.user;
 
 import com.master.bookstore_management.dto.UserDetails;
-import com.master.bookstore_management.dto.UserLogin;
 import com.master.bookstore_management.dto.UserResponse;
 import com.master.bookstore_management.model.User;
-import com.master.bookstore_management.repository.UserRepositoryJPA;
+import com.master.bookstore_management.repository.user.UserRepositoryJPA;
 import com.master.bookstore_management.token.JwtUtil;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.master.bookstore_management.repository;
+package com.master.bookstore_management.repository.user;
 
 import com.master.bookstore_management.dto.UserDetails;
 import com.master.bookstore_management.dto.UserResponse;

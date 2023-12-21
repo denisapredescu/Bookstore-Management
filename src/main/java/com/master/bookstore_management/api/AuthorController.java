@@ -17,29 +17,28 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addAuthor")
     public ResponseEntity<Author> addAuthor(@RequestHeader(name = "userToken") String token,
                                        @Valid @RequestBody Author newAuthor){
-        System.out.println("sdasds");
         return ResponseEntity.ok(authorService.addAuthor(token, newAuthor));
     }
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/updateAuthor/{id}")
     public ResponseEntity<Author> updateAuthor(@PathVariable int id,
                                            @RequestHeader(name = "userToken") String token,
                                            @Valid @RequestBody Author newAuthor){
         return ResponseEntity.ok(authorService.updateAuthor(token, newAuthor, id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteAuthor/{id}")
     public ResponseEntity<Void> deleteAuthor(@PathVariable int id,
                                            @RequestHeader(name = "userToken") String token){
         authorService.deleteAuthor(token, id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/getAllByAdmin")
-    public ResponseEntity<List<Author>> getAuthors(){
-        return ResponseEntity.ok(authorService.getAuthors());
+    @GetMapping("/getAuthors")
+    public ResponseEntity<List<Author>> getAuthors(@RequestHeader(name = "userToken") String token){
+        return ResponseEntity.ok(authorService.getAuthors(token));
     }
 }

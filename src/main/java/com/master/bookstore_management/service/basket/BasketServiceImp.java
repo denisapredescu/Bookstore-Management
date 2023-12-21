@@ -4,7 +4,7 @@ import com.master.bookstore_management.model.Basket;
 import com.master.bookstore_management.model.Book;
 import com.master.bookstore_management.model.BookBasket;
 import com.master.bookstore_management.model.User;
-import com.master.bookstore_management.repository.UserRepositoryJPA;
+import com.master.bookstore_management.repository.user.UserRepositoryJPA;
 import com.master.bookstore_management.repository.basket.BasketRepositoryJPA;
 import com.master.bookstore_management.repository.basket.BookBasketRepositoryJPA;
 import com.master.bookstore_management.repository.book.BookRepositoryJPA;
@@ -54,7 +54,7 @@ public class BasketServiceImp implements BasketService {
 
     @Override
     public Basket getBasket(int userId) {
-        return  basketRepository.findByUserId(userId).orElseThrow();
+        return basketRepository.findByUserId(userId).orElse(null);
     }
 
     @Transactional
