@@ -1,3 +1,3 @@
 # Bookstore-Management
 
-![Alt text](pictures/MySQLWorkbench_diagram.png)
+![Alt text](pictures/MySQLWorkbenchDiagram.png)
