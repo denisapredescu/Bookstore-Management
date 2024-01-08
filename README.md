@@ -1,4 +1,4 @@
-# Bookstore-Management
+# Bookstore Management
 
 ## <i>Business requirements:</i>
 
