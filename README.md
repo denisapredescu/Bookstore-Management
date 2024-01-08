@@ -142,10 +142,16 @@ The route to access the swagger: [<i>http://localhost:8000/swagger-ui/index.html
 </details>
 
 ## The functionality of the application will be demonstrated using Postman
- 
 
+## Exceptions
 
+<details><summary><b>Folder with the exceptions</b></summary>
 
+<p align="center">
+  <img src="pictures/exception_folder.png" alt="exception_folder">
+</p>
+
+</details>
 
 
 
