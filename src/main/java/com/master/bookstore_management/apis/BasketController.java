@@ -30,12 +30,18 @@ public class BasketController {
     }
 
     @PostMapping("/addBookToBasket/{bookId}/{basketId}")
-    public  ResponseEntity<Basket> addBookToBasket(@PathVariable int bookId, @PathVariable int basketId) {
+    public  ResponseEntity<Basket> addBookToBasket(@PathVariable int bookId,
+                                                   @PathVariable int basketId) {
         return  ResponseEntity.ok(basketService.addBookToBasket(bookId, basketId));
     }
 
-    @PostMapping("/removeBookFromBasket/{bookId}/{basketId}")
+    @DeleteMapping("/removeBookFromBasket/{bookId}/{basketId}")
     public  ResponseEntity<Basket> removeBookFromBasket(@PathVariable int bookId, @PathVariable int basketId) {
         return  ResponseEntity.ok(basketService.removeBookFromBasket(bookId, basketId));
+    }
+
+    @PatchMapping("/decrementBookFromBasket/{bookId}/{basketId}")
+    public ResponseEntity<Basket> decrementBookFromBasket(@PathVariable int bookId, @PathVariable int basketId) {
+        return ResponseEntity.ok(basketService.decrementBookFromBasket(bookId, basketId));
     }
 }

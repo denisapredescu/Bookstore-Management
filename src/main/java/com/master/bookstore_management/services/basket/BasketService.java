@@ -9,4 +9,5 @@ public interface BasketService {
     BasketDetails getBasket(int userId);
     Basket addBookToBasket(int bookId, int basketId);
     Basket removeBookFromBasket(int bookId, int basketId);
+    Basket decrementBookFromBasket(int bookId, int basketId);
 }

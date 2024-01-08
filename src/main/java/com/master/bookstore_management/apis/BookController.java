@@ -1,6 +1,8 @@
 package com.master.bookstore_management.apis;
 
+import com.master.bookstore_management.models.Author;
 import com.master.bookstore_management.models.Book;
+import com.master.bookstore_management.models.Category;
 import com.master.bookstore_management.services.book.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ public class BookController {
 
     @PostMapping("/add")
     public ResponseEntity<Book> addBook(@RequestHeader(name = "userToken") String token,
-                                       @RequestBody Book newBook){
+                                        @Valid @RequestBody Book newBook){
         return ResponseEntity.ok(bookService.addBook(token, newBook));
     }
 
@@ -28,6 +30,20 @@ public class BookController {
                                            @RequestHeader(name = "userToken") String token,
                                            @Valid @RequestBody Book newBook){
         return ResponseEntity.ok(bookService.updateBook(token, newBook, id));
+    }
+
+    @PatchMapping("/addAuthorToBook")
+    public ResponseEntity<Book> addAuthorToBook(@RequestHeader(name = "userToken") String token,
+                                                @PathVariable int bookId,
+                                                @Valid @RequestBody Author newAuthor) {
+        return ResponseEntity.ok(bookService.addAuthorToBook(token, bookId, newAuthor));
+    }
+
+    @PatchMapping("/addCategoriesToBook")
+    public ResponseEntity<Book> addCategoriesToBook(@RequestHeader(name = "userToken") String token,
+                                                    @PathVariable int bookId,
+                                                    @Valid @RequestBody List<Category> newCategories) {
+        return ResponseEntity.ok(bookService.addCategoriesToBook(token, bookId, newCategories));
     }
 
     @PatchMapping("/delete/{id}")

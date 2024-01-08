@@ -18,7 +18,7 @@ public class AuthorController {
 
     @PostMapping("/addAuthor")
     public ResponseEntity<Author> addAuthor(@RequestHeader(name = "userToken") String token,
-                                       @Valid @RequestBody Author newAuthor){
+                                            @Valid @RequestBody Author newAuthor){
         return ResponseEntity.ok(authorService.addAuthor(token, newAuthor));
     }
 
@@ -31,7 +31,7 @@ public class AuthorController {
 
     @DeleteMapping("/deleteAuthor/{id}")
     public ResponseEntity<Void> deleteAuthor(@PathVariable int id,
-                                           @RequestHeader(name = "userToken") String token){
+                                             @RequestHeader(name = "userToken") String token){
         authorService.deleteAuthor(token, id);
         return ResponseEntity.noContent().build();
     }

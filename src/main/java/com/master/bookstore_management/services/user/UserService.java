@@ -8,8 +8,9 @@ import java.util.List;
 
 public interface UserService {
     User createUser(User user);
-
     UserResponse login(String email, String password);
-
     List<UserDetails> getUsers(String token);
+    void delete(String email);
+    User getUser(int userId);
 }
+

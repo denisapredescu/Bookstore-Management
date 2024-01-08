@@ -3,7 +3,7 @@ package com.master.bookstore_management.services.user;
 import com.master.bookstore_management.dtos.UserDetails;
 import com.master.bookstore_management.dtos.UserResponse;
 import com.master.bookstore_management.models.User;
-import com.master.bookstore_management.repositories.user.UserRepositoryJPA;
+import com.master.bookstore_management.repositories.user.UserRepository;
 import com.master.bookstore_management.token.JwtUtil;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +12,9 @@ import java.util.NoSuchElementException;
 
 @Service
 public class UserServiceImp implements UserService {
-    UserRepositoryJPA userRepository;
+    UserRepository userRepository;
 
-    public UserServiceImp(UserRepositoryJPA userRepository) {
+    public UserServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -38,5 +38,20 @@ public class UserServiceImp implements UserService {
     public List<UserDetails> getUsers(String token) {
         JwtUtil.verifyAdmin(token);
         return userRepository.getUsers();
+    }
+
+    @Override
+    public void delete(String email) {
+        User user = userRepository.getUserByEmail(email).orElseThrow(
+                () -> new NoSuchElementException("User not found"));
+
+        userRepository.delete(user);
+    }
+
+    @Override
+    public User getUser(int userId) {
+        return userRepository.findById(userId).orElseThrow(
+                () -> new NoSuchElementException("User not found")
+        );
     }
 }

@@ -9,4 +9,6 @@ public interface CategoryService {
     Category updateCategory(String token, Category updateCategory, int id);
     void deleteCategory(String token, int id);
     List<Category> getCategories();
+
+    Category save(Category newCategory);
 }

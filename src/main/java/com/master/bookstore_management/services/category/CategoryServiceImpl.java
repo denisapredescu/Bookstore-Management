@@ -1,23 +1,30 @@
 package com.master.bookstore_management.services.category;
 
 import com.master.bookstore_management.models.Category;
-import com.master.bookstore_management.repositories.category.CategoryRepositoryJPA;
+import com.master.bookstore_management.repositories.category.CategoryRepository;
 import com.master.bookstore_management.token.JwtUtil;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    CategoryRepositoryJPA categoryRepository;
+    CategoryRepository categoryRepository;
 
-    public CategoryServiceImpl(CategoryRepositoryJPA categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
+    @Transactional
     @Override
     public Category addCategory(String token, Category newCategory) {
         JwtUtil.verifyAdmin(token);
+        return save(newCategory);
+    }
+
+    @Override
+    public Category save(Category newCategory) {
         Category category = categoryRepository.findByName(newCategory.getName()).orElse(null);
 
         if(category == null) {
@@ -26,6 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
         return category;
     }
 
+    @Transactional
     @Override
     public Category updateCategory(String token, Category updateCategory, int id) {
         JwtUtil.verifyAdmin(token);
@@ -45,4 +53,5 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getCategories() {
         return categoryRepository.findAll();
     }
+
 }

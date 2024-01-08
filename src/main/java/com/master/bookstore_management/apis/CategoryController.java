@@ -18,7 +18,7 @@ public class CategoryController {
 
     @PostMapping("/addCategory")
     public ResponseEntity<Category> addCategory(@RequestHeader(name = "userToken") String token,
-                                            @Valid @RequestBody Category newCategory){
+                                                @Valid @RequestBody Category newCategory){
         return ResponseEntity.ok(categoryService.addCategory(token, newCategory));
     }
 
@@ -31,7 +31,7 @@ public class CategoryController {
 
     @DeleteMapping("/deleteCategory/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable int id,
-                                             @RequestHeader(name = "userToken") String token){
+                                               @RequestHeader(name = "userToken") String token){
         categoryService.deleteCategory(token, id);
         return ResponseEntity.noContent().build();
     }
