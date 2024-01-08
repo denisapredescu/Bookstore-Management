@@ -32,14 +32,14 @@ public class BookController {
         return ResponseEntity.ok(bookService.updateBook(token, newBook, id));
     }
 
-    @PatchMapping("/addAuthorToBook")
+    @PatchMapping("/addAuthorToBook/{bookId}")
     public ResponseEntity<Book> addAuthorToBook(@RequestHeader(name = "userToken") String token,
                                                 @PathVariable int bookId,
                                                 @Valid @RequestBody Author newAuthor) {
         return ResponseEntity.ok(bookService.addAuthorToBook(token, bookId, newAuthor));
     }
 
-    @PatchMapping("/addCategoriesToBook")
+    @PatchMapping("/addCategoriesToBook/{bookId}")
     public ResponseEntity<Book> addCategoriesToBook(@RequestHeader(name = "userToken") String token,
                                                     @PathVariable int bookId,
                                                     @Valid @RequestBody List<Category> newCategories) {
