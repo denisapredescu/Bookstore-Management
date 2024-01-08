@@ -1,6 +1,6 @@
 # Bookstore-Management
 
-![Alt text](pictures/MySQLWorkbenchDiagram.png)
+![diagram](pictures/MySQLWorkbenchDiagram.png)
 
 ## <i>Business requirements:</i>
 
@@ -22,4 +22,18 @@
 ## <i>5 main features:</i>
 
 
-### The project should consist of a Spring Boot Application containing:
+### REST endpoints for all the features defined for the MVP
+
+<img src="pictures/controllers.png" alt="endpoints" style="display: block; margin-left: auto; margin-right: auto;">
+
+![swagger_endpoints](pictures/swagger_endpoints.png)
+
+### Beans for defining services
+
+### Beans for defining repositories One repository per entity.
+
+### Document the functionalities in the application such that anyone can use it after reading the document. Every API will be documented by Swagger
+
+The route to access the swagger: [<i>http://localhost:8000/swagger-ui/index.html#/</i>](http://localhost:8000/swagger-ui/index.html#/)
+
+![swagger](pictures/swagger.png)

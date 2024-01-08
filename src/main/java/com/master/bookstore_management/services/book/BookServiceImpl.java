@@ -19,7 +19,9 @@ public class BookServiceImpl implements BookService {
     private final CategoryService categoryService;
     private final AuthorService authorService;
 
-    public BookServiceImpl(BookRepository bookRepository, CategoryService categoryService, AuthorService authorService) {
+    public BookServiceImpl(BookRepository bookRepository,
+                           CategoryService categoryService,
+                           AuthorService authorService) {
         this.bookRepository = bookRepository;
         this.categoryService = categoryService;
         this.authorService = authorService;

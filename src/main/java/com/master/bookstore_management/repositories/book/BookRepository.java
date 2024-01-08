@@ -4,10 +4,11 @@ import com.master.bookstore_management.models.Book;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Primary
+@Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("SELECT b FROM Book b WHERE b.is_deleted = false")
     List<Book> getAvailableBooks();
