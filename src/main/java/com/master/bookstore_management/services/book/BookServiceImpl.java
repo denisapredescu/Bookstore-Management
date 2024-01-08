@@ -27,33 +27,6 @@ public class BookServiceImpl implements BookService {
         this.authorService = authorService;
     }
 
-//    @Transactional
-//    @Override
-//    public Book addBook(String token, Book newBook) {
-//        JwtUtil.verifyAdmin(token);
-//        Author author = null;
-//        List<Category> categories = new ArrayList<>();
-//
-//        if (newBook.getAuthor() != null) {
-//            author = authorRepository.save(newBook.getAuthor());
-//        }
-//
-//        if (newBook.getBookCategories() != null) {
-//            for (Category category:
-//                    newBook.getBookCategories()) {
-////                categories.add(categoryRepository.save(category));
-//                categories.add(categoryService.save(category));
-//            }
-//        }
-//
-//        Book book = bookRepository.save(newBook);
-//
-//        book.setAuthor(author);
-//        book.setBookCategories(categories);
-//
-//        return bookRepository.save(book);
-//    }
-
     @Transactional
     @Override
     public Book addBook(String token, Book newBook) {

@@ -22,7 +22,6 @@ public class Book {
 
     @Column(name = "price")
     @Min(value = 0)
-//    @NotEmpty(message = "The price cannot be blank!")
     @NotNull
     private int price;
 
