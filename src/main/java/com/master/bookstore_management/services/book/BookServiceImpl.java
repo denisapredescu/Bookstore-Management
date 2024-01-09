@@ -1,5 +1,6 @@
 package com.master.bookstore_management.services.book;
 
+import com.master.bookstore_management.exceptions.exceptions.DeletedBookException;
 import com.master.bookstore_management.models.Author;
 import com.master.bookstore_management.models.Book;
 import com.master.bookstore_management.models.Category;
@@ -10,8 +11,7 @@ import com.master.bookstore_management.token.JwtUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -41,6 +41,9 @@ public class BookServiceImpl implements BookService {
         JwtUtil.verifyAdmin(token);
         Book book = getBookById(bookId);
 
+        if (book.getIs_deleted() == true)
+            throw new DeletedBookException("Cannot add author to a deleted book");
+
         Author author = authorService.save(newAuthor);
         book.setAuthor(author);
 
@@ -53,12 +56,19 @@ public class BookServiceImpl implements BookService {
         JwtUtil.verifyAdmin(token);
         Book book = getBookById(bookId);
 
-        List<Category> categories = book.getBookCategories();
+        if (book.getIs_deleted() == true)
+            throw new DeletedBookException("Cannot add categories to a deleted book");
+
+
+//        List<Category> categories = book.getBookCategories();
+        Set<Category> categories = new HashSet<>(book.getBookCategories());
+//        categories.to
         for (Category category: newCategories) {
-            categories.add(categoryService.save(category));
+            Category addedCategory = categoryService.save(category);
+            categories.add(addedCategory);
         }
 
-        book.setBookCategories(categories);
+        book.setBookCategories(new ArrayList<>(categories));
 
         return bookRepository.save(book);
     }
@@ -70,6 +80,9 @@ public class BookServiceImpl implements BookService {
         Book book = bookRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Book with this id not found"));
 
+        if (book.getIs_deleted() == true)
+            throw new DeletedBookException("Cannot update a deleted book");
+
         book.setName(bookToUpdate.getName());
         book.setIs_deleted(bookToUpdate.getIs_deleted());
         book.setSeries_name(bookToUpdate.getSeries_name());
@@ -78,8 +91,9 @@ public class BookServiceImpl implements BookService {
         book.setYear(bookToUpdate.getYear());
 
         if (bookToUpdate.getAuthor() != null)
-            book.setAuthor(bookToUpdate.getAuthor());
-        // TODO:: update book category
+//            book.setAuthor(bookToUpdate.getAuthor());
+            addAuthorToBook(token, book.getId(), bookToUpdate.getAuthor());
+        // TODO: update book category
 
         return bookRepository.save(book);
     }

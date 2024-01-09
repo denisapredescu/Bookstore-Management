@@ -9,7 +9,6 @@ import java.util.Objects;
 @Table(name = "authors")
 public class Author {
     @Id
-    @NotNull
     @GeneratedValue
     private Integer id;
 

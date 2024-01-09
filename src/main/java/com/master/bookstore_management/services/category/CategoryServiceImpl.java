@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -23,6 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
         return save(newCategory);
     }
 
+    @Transactional
     @Override
     public Category save(Category newCategory) {
         Category category = categoryRepository.findByName(newCategory.getName()).orElse(null);
@@ -30,6 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
         if(category == null) {
             return categoryRepository.save(newCategory);
         }
+
         return category;
     }
 
@@ -37,7 +40,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category updateCategory(String token, Category updateCategory, int id) {
         JwtUtil.verifyAdmin(token);
-        Category category = categoryRepository.findById(id).orElseThrow();
+        Category category = categoryRepository.findById(id).orElseThrow(
+                () -> new NoSuchElementException("Category with this id not found"));
+
         category.setName(updateCategory.getName());
 
         return categoryRepository.save(category);

@@ -65,7 +65,9 @@ public class BasketServiceImp implements BasketService {
             basket = createBasket(userId);
 
         return new BasketDetails(
+                basket.getId(),
                 basket.getSent().toString(),
+                basket.getUser().getId(),
                 basket.getUser().getEmail(),
                 basket.getCost(),
                 basketRepository.findBooksFromCurrentBasket(basket.getId())

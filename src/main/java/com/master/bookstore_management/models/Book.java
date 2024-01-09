@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +23,8 @@ public class Book {
 
     @Column(name = "price")
     @Min(value = 0)
-    @NotNull
+    @NotNull(message = "The price must be set!")
+    @Positive(message = "Price should be greater than zero")
     private int price;
 
     @Column(name = "year")
@@ -75,6 +77,18 @@ public class Book {
         this.volume = volume;
         this.series_name = series_name;
         this.author = author;
+    }
+
+    public Book(int id, String name, int price, int year, int volume, String series_name, Boolean is_deleted, Author author, List<Category> bookCategories) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.year = year;
+        this.volume = volume;
+        this.series_name = series_name;
+        this.is_deleted = is_deleted;
+        this.author = author;
+        this.bookCategories = bookCategories;
     }
 
     public int getId() {

@@ -55,7 +55,7 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     @Override
-    public List<Author> getAuthors(String token) {
+    public List<Author> getAuthors() {
         return authorRepository.getAuthors();
     }
 

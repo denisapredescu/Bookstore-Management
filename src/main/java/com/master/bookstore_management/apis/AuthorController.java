@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/author")
+@RestController
+@RequestMapping("/author")
 public class AuthorController {
     AuthorService authorService;
 
@@ -16,20 +17,20 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @PostMapping("/addAuthor")
+    @PostMapping("/add")
     public ResponseEntity<Author> addAuthor(@RequestHeader(name = "userToken") String token,
                                             @Valid @RequestBody Author newAuthor){
         return ResponseEntity.ok(authorService.addAuthor(token, newAuthor));
     }
 
-    @PatchMapping("/updateAuthor/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseEntity<Author> updateAuthor(@PathVariable int id,
                                            @RequestHeader(name = "userToken") String token,
                                            @Valid @RequestBody Author newAuthor){
         return ResponseEntity.ok(authorService.updateAuthor(token, newAuthor, id));
     }
 
-    @DeleteMapping("/deleteAuthor/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteAuthor(@PathVariable int id,
                                              @RequestHeader(name = "userToken") String token){
         authorService.deleteAuthor(token, id);
@@ -37,7 +38,12 @@ public class AuthorController {
     }
 
     @GetMapping("/getAuthors")
-    public ResponseEntity<List<Author>> getAuthors(@RequestHeader(name = "userToken") String token){
-        return ResponseEntity.ok(authorService.getAuthors(token));
+    public ResponseEntity<List<Author>> getAuthors(){
+        return ResponseEntity.ok(authorService.getAuthors());
+    }
+
+    @GetMapping("/getAuthor/{firstName}/{lastName}")
+    public ResponseEntity<Author> getAuthor(@PathVariable String firstName, @PathVariable String lastName){
+        return ResponseEntity.ok(authorService.getAuthor(firstName, lastName));
     }
 }

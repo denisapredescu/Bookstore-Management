@@ -1,9 +1,6 @@
 package com.master.bookstore_management.exceptions.handlers;
 
-import com.master.bookstore_management.exceptions.exceptions.InvalidTokenException;
-import com.master.bookstore_management.exceptions.exceptions.NoSuchElementInDatabaseException;
-import com.master.bookstore_management.exceptions.exceptions.UnauthorizedUserException;
-import com.master.bookstore_management.exceptions.exceptions.UserNotLoggedInException;
+import com.master.bookstore_management.exceptions.exceptions.*;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +35,16 @@ public class ExceptionsHandler extends BaseExceptionHandler {
     @ExceptionHandler(NoSuchElementInDatabaseException.class)
     public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementInDatabaseException ex, WebRequest request) {
         return buildResponse(ex, request);
+    }
+
+    @ExceptionHandler(EmailAlreadyUsedException.class)
+    public ResponseEntity<Object> handleEmailAlreadyUsedException(EmailAlreadyUsedException ex, WebRequest request) {
+        return  buildResponse(ex, request);
+    }
+
+    @ExceptionHandler(DeletedBookException.class)
+    public ResponseEntity<Object> handleDeletedBookException(DeletedBookException ex, WebRequest request) {
+        return  buildResponse(ex, request);
     }
 
     @ExceptionHandler(NoSuchElementException.class)

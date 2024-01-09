@@ -12,7 +12,7 @@ public class Category {
     @GeneratedValue
     private int id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     @NotEmpty(message = "The name cannot be blank!")
     private String name;
 

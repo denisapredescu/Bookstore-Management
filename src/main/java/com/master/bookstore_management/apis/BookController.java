@@ -42,7 +42,7 @@ public class BookController {
     @PatchMapping("/addCategoriesToBook/{bookId}")
     public ResponseEntity<Book> addCategoriesToBook(@RequestHeader(name = "userToken") String token,
                                                     @PathVariable int bookId,
-                                                    @Valid @RequestBody List<Category> newCategories) {
+                                                    @RequestBody List<Category> newCategories) {
         return ResponseEntity.ok(bookService.addCategoriesToBook(token, bookId, newCategories));
     }
 
@@ -67,6 +67,7 @@ public class BookController {
     public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable String firstname, @PathVariable String lastName){
         return ResponseEntity.ok(bookService.getBooksByAuthor(firstname, lastName));
     }
+
     @GetMapping("/getBooksByCategory/{category}")
     public ResponseEntity<List<Book>> getBooksByCategory(@PathVariable String category){
         return ResponseEntity.ok(bookService.getBooksByCategory(category));

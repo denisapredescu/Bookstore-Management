@@ -6,7 +6,8 @@ import com.master.bookstore_management.services.basket.BasketService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/basket")
+@RestController
+@RequestMapping("/basket")
 public class BasketController {
     BasketService basketService;
 
