@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
         JwtUtil.verifyAdmin(token);
         Book book = getBookById(bookId);
 
-        if (book.getIs_deleted() == true)
+        if (book.getIs_deleted())
             throw new DeletedBookException("Cannot add author to a deleted book");
 
         Author author = authorService.save(newAuthor);
@@ -56,13 +56,10 @@ public class BookServiceImpl implements BookService {
         JwtUtil.verifyAdmin(token);
         Book book = getBookById(bookId);
 
-        if (book.getIs_deleted() == true)
+        if (book.getIs_deleted())
             throw new DeletedBookException("Cannot add categories to a deleted book");
 
-
-//        List<Category> categories = book.getBookCategories();
         Set<Category> categories = new HashSet<>(book.getBookCategories());
-//        categories.to
         for (Category category: newCategories) {
             Category addedCategory = categoryService.save(category);
             categories.add(addedCategory);
@@ -80,7 +77,7 @@ public class BookServiceImpl implements BookService {
         Book book = bookRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Book with this id not found"));
 
-        if (book.getIs_deleted() == true)
+        if (book.getIs_deleted())
             throw new DeletedBookException("Cannot update a deleted book");
 
         book.setName(bookToUpdate.getName());
