@@ -32,11 +32,6 @@ public class ExceptionsHandler extends BaseExceptionHandler {
         return buildResponse(ex, request);
     }
 
-    @ExceptionHandler(NoSuchElementInDatabaseException.class)
-    public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementInDatabaseException ex, WebRequest request) {
-        return buildResponse(ex, request);
-    }
-
     @ExceptionHandler(EmailAlreadyUsedException.class)
     public ResponseEntity<Object> handleEmailAlreadyUsedException(EmailAlreadyUsedException ex, WebRequest request) {
         return  buildResponse(ex, request);

@@ -30,7 +30,7 @@
 
 </details>
 
-<details><summary><b>Endpoint example to show @RestController annotation, the URL and some CRUD operations</b></summary>
+<details><summary><b>Endpoint example to show <i>@RestController</i> annotation, the URL and some CRUD operations</b></summary>
 
 <p align="center">
   <img src="pictures/restcontroller_book.png" alt="restcontroller_book">
@@ -56,7 +56,7 @@
 
 </details>
 
-<details><summary><b>Example to show @Service annotation and some business logic implementation</b></summary>
+<details><summary><b>Example to show <i>@Service</i> annotation and some business logic implementation</b></summary>
 
 <p align="center">
   <img src="pictures/service_bean.png" alt="service_bean">
@@ -75,7 +75,7 @@
 </details>
 
 <details>
-  <summary><b>Example of beans for defining repositories to show @Repository annotation and the link with JPARepository</b></summary>
+  <summary><b>Example of beans for defining repositories to show <i>@Repository</i> annotation and the link with JPARepository</b></summary>
 
   <p align="center">
     <img src="pictures/repository_book.png" alt="repository_book">
@@ -113,7 +113,7 @@
 
 ## <i>Validate the POJO classes. You can use the existing validation constraints or create your own annotations if you need a custom constraint</i>
 
-<details><summary><b>Present the @Valid annotation in Book Controller</b></summary>
+<details><summary><b>Present the <i>@Valid</i> annotation in Book Controller</b></summary>
 
 <p align="center">
   <img src="pictures/validation.png" alt="validation">
@@ -143,6 +143,19 @@ The route to access the swagger: [<i>http://localhost:8000/swagger-ui/index.html
 
 ## <i>The functionality of the application will be demonstrated using Postman</i>
 
+To add a parameter in the request header using *@RequestHeader* you should write 
+> **pm.request.headers.add("foo: bar");**
+> 
+> where:<br>
+> **foo** is the key <br>
+> **bar** is the value
+
+<p align="center">
+  <img src="pictures/request header example.png" alt="request header example">
+</p>
+
+
+
 ## <i>Exceptions</i>
 
 <details><summary><b>Folder with the exceptions</b></summary>
@@ -152,6 +165,8 @@ The route to access the swagger: [<i>http://localhost:8000/swagger-ui/index.html
 </p>
 
 </details>
+![request header example.png](pictures%2Frequest%20header%20example.png)
+![EmailAlreadyUsedException.png](pictures%2FEmailAlreadyUsedException.png)
+![DeletedBookException.png](pictures%2FDeletedBookException.png)
 
-
-
+![functions in postman.png](pictures%2Ffunctions%20in%20postman.png)![NoSuchElementException.png](pictures%2FNoSuchElementException.png)![NoSuchElementException 1.png](pictures%2FNoSuchElementException%201.png)
