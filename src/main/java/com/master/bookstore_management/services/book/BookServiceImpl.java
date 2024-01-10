@@ -89,7 +89,6 @@ public class BookServiceImpl implements BookService {
 
         if (bookToUpdate.getAuthor() != null)
             addAuthorToBook(token, book.getId(), bookToUpdate.getAuthor());
-        // TODO: update book category
 
         return bookRepository.save(book);
     }
@@ -132,5 +131,4 @@ public class BookServiceImpl implements BookService {
                 () -> new NoSuchElementException("Does not exist a book with this id")
         );
     }
-
 }
