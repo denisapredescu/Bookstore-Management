@@ -20,7 +20,7 @@
 ## <i>5 main features:</i>
 
 
-## REST endpoints for all the features defined for the MVP
+## <i>REST endpoints for all the features defined for the MVP</i>
 
 <details><summary><b>Folder with all the controllers</b></summary>
 
@@ -46,7 +46,7 @@
 
 </details>
 
-## Beans for defining services
+## <i>Beans for defining services</i>
 
 <details><summary><b>Picture of the folder with all the services</b></summary>
 
@@ -64,7 +64,7 @@
 
 </details>
 
-## Beans for defining repositories. One repository per entity.
+## <i>Beans for defining repositories. One repository per entity</i>
 
 <details><summary><b>Folder with all the entities and repositories</b></summary>
 <p align="center">
@@ -85,10 +85,10 @@
 
 </details>
 
-## Unit tests for all REST endpoints and services
+## <i>Unit tests for all REST endpoints and services</i>
 
 
-## The data within the application should be persisted in a database. Define at least 6 entities that will be persisted in the database database, and at least 4 relations between them.
+## <i>The data within the application should be persisted in a database. Define at least 6 entities that will be persisted in the database, and at least 4 relations between them</i>
  
 
 <details><summary><b>Picture of the folder with all the entities</b></summary>
@@ -111,7 +111,7 @@
 
 </details>
 
-## Validate the POJO classes. You can use the existing validation constraints or create your own annotations if you need a custom constraint
+## <i>Validate the POJO classes. You can use the existing validation constraints or create your own annotations if you need a custom constraint</i>
 
 <details><summary><b>Present the @Valid annotation in Book Controller</b></summary>
 
@@ -129,7 +129,7 @@
 
 </details>
 
-## Document the functionalities in the application such that anyone can use it after reading the document. Every API will be documented by Swagger
+## <i>Document the functionalities in the application such that anyone can use it after reading the document. Every API will be documented by Swagger</i>
  
 The route to access the swagger: [<i>http://localhost:8000/swagger-ui/index.html#/</i>](http://localhost:8000/swagger-ui/index.html#/)
 
@@ -141,9 +141,9 @@ The route to access the swagger: [<i>http://localhost:8000/swagger-ui/index.html
 
 </details>
 
-## The functionality of the application will be demonstrated using Postman
+## <i>The functionality of the application will be demonstrated using Postman</i>
 
-## Exceptions
+## <i>Exceptions</i>
 
 <details><summary><b>Folder with the exceptions</b></summary>
 
