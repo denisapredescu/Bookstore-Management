@@ -88,7 +88,6 @@ public class BookServiceImpl implements BookService {
         book.setYear(bookToUpdate.getYear());
 
         if (bookToUpdate.getAuthor() != null)
-//            book.setAuthor(bookToUpdate.getAuthor());
             addAuthorToBook(token, book.getId(), bookToUpdate.getAuthor());
         // TODO: update book category
 

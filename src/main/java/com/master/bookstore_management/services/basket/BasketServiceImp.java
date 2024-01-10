@@ -57,12 +57,18 @@ public class BasketServiceImp implements BasketService {
         return basketRepository.save(basket);
     }
 
+    @Transactional
     @Override
     public BasketDetails getBasket(int userId) {
         Basket basket =  basketRepository.findByUserId(userId).orElse(null);
 
         if (basket == null)
-            basket = createBasket(userId);
+            basket = basketRepository.save(new Basket(
+                    0,
+                    false,
+                    0,
+                    userService.getUser(userId)
+            ));
 
         return new BasketDetails(
                 basket.getId(),
@@ -80,21 +86,7 @@ public class BasketServiceImp implements BasketService {
         Basket basket = basketRepository.findById(basketId).orElseThrow(
                 () -> new NoSuchElementException("Does not exist a basket with this id")
         );
-//        BookBasket bookBasket = bookBasketRepository.findBookInBasket(bookId, basketId).orElse(null);
-//        BookBasket bookBasket = bookBasketService.findBookInBasket(bookId, basketId).orElse(null);
-//
-//        if(bookBasket == null) {
-//            bookBasket = bookBasketService.save(new BookBasket(
-//                    0,
-//                    1,
-//                    book.getPrice(),
-//                    book,
-//                    basket
-//            ));
-//        } else {
-//            bookBasket.setCopies(bookBasket.getCopies() + 1);
-//            bookBasketService.save(bookBasket);
-//        }
+
         Integer bookPriceInBasket = bookBasketService.addBookToBasket(bookId, basket);
 
         basket.setCost(basket.getCost() + bookPriceInBasket);
@@ -106,15 +98,6 @@ public class BasketServiceImp implements BasketService {
     public Basket removeBookFromBasket(int bookId, int basketId) {
         Basket basket = basketRepository.findById(basketId).orElseThrow(
                 () -> new NoSuchElementException("Does not exist a basket with this id"));
-
-//        BookBasket bookBasket = bookBasketRepository.findBookInBasket(bookId, basketId).orElseThrow(
-//                () -> new NoSuchElementException("The book is not in this basket"));
-
-//        BookBasket bookBasket = bookBasketService.findBookInBasket(bookId, basketId).orElseThrow(
-//                () -> new NoSuchElementException("The book is not in this basket"));
-//
-////        bookBasketRepository.delete(bookBasket);
-//        bookBasketService.delete(bookBasket);
 
         Integer bookPriceInBasket = bookBasketService.removeBookToBasket(bookId, basketId);
 
