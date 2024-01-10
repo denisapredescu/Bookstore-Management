@@ -180,7 +180,8 @@ To add a parameter in the request header using *@RequestHeader* you should write
 
 </details>
 
-<details><summary><b>EmailAlreadyUsedException thrown</b></summary>
+### Example of thrown and caught exceptions 
+<details><summary><b>EmailAlreadyUsedException</b></summary>
 
 <p align="center">
   <img src="pictures/EmailAlreadyUsedException.png" alt="EmailAlreadyUsedException">
@@ -189,7 +190,7 @@ To add a parameter in the request header using *@RequestHeader* you should write
 </details>
 
 
-<details><summary><b>DeletedBookException thrown</b></summary>
+<details><summary><b>DeletedBookException</b></summary>
 
 <p align="center">
   <img src="pictures/DeletedBookException.png" alt="DeletedBookException">
@@ -198,11 +199,35 @@ To add a parameter in the request header using *@RequestHeader* you should write
 </details>
 
 
-<details><summary><b>NoSuchElementException thrown</b></summary>
+<details><summary><b>NoSuchElementException</b></summary>
 
 <p align="center">
   <img src="pictures/NoSuchElementException.png" alt="NoSuchElementException">
     <img src="pictures/NoSuchElementException 1.png" alt="NoSuchElementException 1">
+</p>
+
+</details>
+
+<details><summary><b>UserNotLoggedInException</b></summary>
+
+<p align="center">
+  <img src="pictures/UserNotLoggedInException.png" alt="UserNotLoggedInException">
+</p>
+
+</details>
+
+<details><summary><b>UnauthorizedUserException</b></summary>
+
+<p align="center">
+  <img src="pictures/UnauthorizedUserException.png" alt="UnauthorizedUserException">
+</p>
+
+</details>
+
+<details><summary><b>InvalidTokenException</b></summary>
+
+<p align="center">
+  <img src="pictures/InvalidTokenException.png" alt="InvalidTokenException">
 </p>
 
 </details>

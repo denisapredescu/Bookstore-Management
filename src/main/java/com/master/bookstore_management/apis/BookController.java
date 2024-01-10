@@ -42,7 +42,7 @@ public class BookController {
     @PatchMapping("/addCategoriesToBook/{bookId}")
     public ResponseEntity<Book> addCategoriesToBook(@RequestHeader(name = "userToken") String token,
                                                     @PathVariable int bookId,
-                                                    @RequestBody List<Category> newCategories) {
+                                                    @Valid @RequestBody List<Category> newCategories) {
         return ResponseEntity.ok(bookService.addCategoriesToBook(token, bookId, newCategories));
     }
 
