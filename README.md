@@ -14,8 +14,8 @@
 10. The user can increase and decrease numbers of copies of books from his basket.
 11. The user can submit order.
 12. The user can make an account, login and soft delete his account.
-13. The admin can see a list of all users.
-
+13. The admin can see a list of all users. 
+14. The admin can add and remove the matching between a book and categories/author.
 
 ## <i>5 main features:</i>
 
