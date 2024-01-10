@@ -154,7 +154,21 @@ To add a parameter in the request header using *@RequestHeader* you should write
   <img src="pictures/request header example.png" alt="request header example">
 </p>
 
+<details><summary><b>The collection of functionalities of the application in Postman</b></summary>
 
+<p align="center">
+  <img src="pictures/functions in postman.png" alt="functions in postman">
+</p>
+
+</details>
+
+<details><summary><b>Example of functionality of the application called in Postman</b></summary>
+
+<p align="center">
+  <img src="pictures/getBasket.png" alt="getBasket functionality">
+</p>
+
+</details>
 
 ## <i>Exceptions</i>
 
@@ -165,8 +179,30 @@ To add a parameter in the request header using *@RequestHeader* you should write
 </p>
 
 </details>
-![request header example.png](pictures%2Frequest%20header%20example.png)
-![EmailAlreadyUsedException.png](pictures%2FEmailAlreadyUsedException.png)
-![DeletedBookException.png](pictures%2FDeletedBookException.png)
 
-![functions in postman.png](pictures%2Ffunctions%20in%20postman.png)![NoSuchElementException.png](pictures%2FNoSuchElementException.png)![NoSuchElementException 1.png](pictures%2FNoSuchElementException%201.png)
+<details><summary><b>EmailAlreadyUsedException thrown</b></summary>
+
+<p align="center">
+  <img src="pictures/EmailAlreadyUsedException.png" alt="EmailAlreadyUsedException">
+</p>
+
+</details>
+
+
+<details><summary><b>DeletedBookException thrown</b></summary>
+
+<p align="center">
+  <img src="pictures/DeletedBookException.png" alt="DeletedBookException">
+</p>
+
+</details>
+
+
+<details><summary><b>NoSuchElementException thrown</b></summary>
+
+<p align="center">
+  <img src="pictures/NoSuchElementException.png" alt="NoSuchElementException">
+    <img src="pictures/NoSuchElementException 1.png" alt="NoSuchElementException 1">
+</p>
+
+</details>
