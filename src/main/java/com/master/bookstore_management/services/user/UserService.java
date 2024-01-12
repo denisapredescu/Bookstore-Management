@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface UserService {
     User create(User user);
-    User update(Integer id, UpdateUser user);
+    User update(String token, Integer id, UpdateUser user);
     UserResponse login(String email, String password);
     List<UserDetails> getUsers(String token);
-    void delete(Integer id);
+    void delete(String token, Integer id);
     User getUser(int userId);
 }
 

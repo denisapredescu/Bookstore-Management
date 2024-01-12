@@ -26,14 +26,16 @@ public class UserController {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<User> update(@PathVariable Integer id,
+    public ResponseEntity<User> update(@RequestHeader(name = "userToken") String token,
+                                       @PathVariable Integer id,
                                        @Valid @RequestBody UpdateUser updateUser){
-        return ResponseEntity.ok(userService.update(id, updateUser));
+        return ResponseEntity.ok(userService.update(token, id, updateUser));
     }
 
     @PatchMapping("/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
-        userService.delete(id);
+    public ResponseEntity<Void> delete(@RequestHeader(name = "userToken") String token,
+                                       @PathVariable Integer id){
+        userService.delete(token, id);
         return ResponseEntity.noContent().build();
     }
 

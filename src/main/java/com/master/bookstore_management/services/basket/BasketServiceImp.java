@@ -8,6 +8,7 @@ import com.master.bookstore_management.repositories.basket.BasketRepository;
 import com.master.bookstore_management.services.book.BookService;
 import com.master.bookstore_management.services.bookbasket.BookBasketService;
 import com.master.bookstore_management.services.user.UserService;
+import com.master.bookstore_management.token.JwtUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,9 @@ public class BasketServiceImp implements BasketService {
 
     @Transactional
     @Override
-    public Basket sentOrder(int userId) {
+    public Basket sentOrder(String token, int userId) {
+        JwtUtil.verifyIsLoggedIn(token);
+
         Basket basket = basketRepository.findByUserId(userId).orElseThrow(
                 () -> new NoSuchElementException("User does not have a current basket"));
 

@@ -21,8 +21,9 @@ public class BasketController {
     }
 
     @PatchMapping("/sentOrder/{userId}")
-    public ResponseEntity<Basket> sentOrder(@PathVariable int userId){
-        return ResponseEntity.ok(basketService.sentOrder(userId));
+    public ResponseEntity<Basket> sentOrder(@RequestHeader(name = "userToken") String token,
+                                            @PathVariable int userId){
+        return ResponseEntity.ok(basketService.sentOrder(token, userId));
     }
 
     @GetMapping("/getBasket/{userId}")

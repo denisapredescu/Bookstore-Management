@@ -30,12 +30,16 @@ public class JwtUtil {
     }
 
     public static void verifyAdmin(String token) {
-        if (token == null || Strings.isBlank(token)){
-            throw new UserNotLoggedInException("User not logged in");
-        }
+        verifyIsLoggedIn(token);
 
         DecodedJWT decodedJWT = decodeToken(token);
         if(!decodedJWT.getClaim("role").asString().equals("ADMIN"))
             throw new UnauthorizedUserException("User not ADMIN");
+    }
+
+    public static void verifyIsLoggedIn(String token) {
+        if (token == null || Strings.isBlank(token)){
+            throw new UserNotLoggedInException("User not logged in");
+        }
     }
 }

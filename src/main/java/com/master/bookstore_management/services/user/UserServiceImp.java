@@ -34,7 +34,9 @@ public class UserServiceImp implements UserService {
 
     @Transactional
     @Override
-    public User update(Integer id, UpdateUser updateUser) {
+    public User update(String token, Integer id, UpdateUser updateUser) {
+        JwtUtil.verifyIsLoggedIn(token);
+
         User user = userRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("User not found"));
 
@@ -65,7 +67,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(String token, Integer id) {
+        JwtUtil.verifyIsLoggedIn(token);
+
         User user = userRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("User not found"));
 

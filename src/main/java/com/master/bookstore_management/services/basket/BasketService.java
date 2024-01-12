@@ -5,7 +5,7 @@ import com.master.bookstore_management.models.Basket;
 
 public interface BasketService {
     Basket createBasket(int userId);
-    Basket sentOrder(int userId);
+    Basket sentOrder(String token, int userId);
     BasketDetails getBasket(int userId);
     Basket addBookToBasket(int bookId, int basketId);
     Basket removeBookFromBasket(int bookId, int basketId);
