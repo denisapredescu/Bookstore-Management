@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class AuthorControllerTest {
-    // valid token for an admin user
     private static final String TOKEN_ADMIN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEZW5pc2FQcmVkZXNjdSIsInJvbGUiOiJBRE1JTiJ9.ZA0vxSE7keltGZWcNYlRTor-TBOXOrUxFbCsUleok4Y";
 
     private static final Author INPUT_AUTHOR = new Author(
@@ -30,19 +29,13 @@ class AuthorControllerTest {
             "nationality"
     );
 
-    private static final Author UPDATED_AUTHOR = new Author(
-            0,
-            INPUT_AUTHOR.getFirstName(),
-            INPUT_AUTHOR.getLastName(),
-            INPUT_AUTHOR.getNationality()
-    );
-
     private static final Author AUTHOR = new Author(
             INPUT_AUTHOR.getId(),
             INPUT_AUTHOR.getFirstName(),
             INPUT_AUTHOR.getLastName(),
             INPUT_AUTHOR.getNationality()
     );
+    private static final Integer AUTHOR_ID = 0;
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -59,7 +52,8 @@ class AuthorControllerTest {
         String inputAuthorJson = mapper.writeValueAsString(INPUT_AUTHOR);
         String insertedAuthorJson = mapper.writeValueAsString(AUTHOR);
 
-        mockMvc.perform(post("/author/add").header("userToken", TOKEN_ADMIN)
+        mockMvc.perform(post("/author/add")
+                        .header("userToken", TOKEN_ADMIN)
                         .content(inputAuthorJson)
                         .contentType(MediaType.APPLICATION_JSON)
                 ).andExpect(status().isOk())
@@ -68,13 +62,12 @@ class AuthorControllerTest {
 
     @Test
     void updateAuthor() throws Exception {
-        int id = 0;
-        when(authorService.updateAuthor(TOKEN_ADMIN, INPUT_AUTHOR, id)).thenReturn(UPDATED_AUTHOR);
+        when(authorService.updateAuthor(TOKEN_ADMIN, INPUT_AUTHOR, AUTHOR_ID)).thenReturn(AUTHOR);
 
         String inputAuthorJson = mapper.writeValueAsString(INPUT_AUTHOR);
-        String updatedAuthorJson = mapper.writeValueAsString(UPDATED_AUTHOR);
+        String updatedAuthorJson = mapper.writeValueAsString(AUTHOR);
 
-        mockMvc.perform(patch("/author/update/{id}", id)
+        mockMvc.perform(patch("/author/update/{id}", AUTHOR_ID)
                         .header("userToken", TOKEN_ADMIN)
                         .content(inputAuthorJson)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -84,10 +77,9 @@ class AuthorControllerTest {
 
     @Test
     void deleteAuthor() throws Exception {
-        int id = 0;
-        authorService.deleteAuthor(TOKEN_ADMIN, id);
+        authorService.deleteAuthor(TOKEN_ADMIN, AUTHOR_ID);
 
-        mockMvc.perform(delete("/author/delete/{id}", id)
+        mockMvc.perform(delete("/author/delete/{id}", AUTHOR_ID)
                         .header("userToken", TOKEN_ADMIN)
                 ).andExpect(status().isNoContent());
     }

@@ -28,8 +28,8 @@ public class BookController {
     @PatchMapping("/update/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable int id,
                                            @RequestHeader(name = "userToken") String token,
-                                           @Valid @RequestBody Book newBook){
-        return ResponseEntity.ok(bookService.updateBook(token, newBook, id));
+                                           @Valid @RequestBody Book updateBook){
+        return ResponseEntity.ok(bookService.updateBook(token, updateBook, id));
     }
 
     @PatchMapping("/addAuthorToBook/{bookId}")
