@@ -28,7 +28,9 @@ public class BasketServiceImp implements BasketService {
 
     @Transactional
     @Override
-    public Basket createBasket(int userId) {
+    public Basket createBasket(String token, int userId) {
+        JwtUtil.verifyIsLoggedIn(token);
+
         User user = userService.getUser(userId);
 
         Basket basket = basketRepository.findByUserId(userId).orElse(null);
@@ -62,7 +64,9 @@ public class BasketServiceImp implements BasketService {
 
     @Transactional
     @Override
-    public BasketDetails getBasket(int userId) {
+    public BasketDetails getBasket(String token, int userId) {
+        JwtUtil.verifyIsLoggedIn(token);
+
         Basket basket =  basketRepository.findByUserId(userId).orElse(null);
 
         if (basket == null)
@@ -85,7 +89,9 @@ public class BasketServiceImp implements BasketService {
 
     @Transactional
     @Override
-    public Basket addBookToBasket(int bookId, int basketId) {
+    public Basket addBookToBasket(String token, int bookId, int basketId) {
+        JwtUtil.verifyIsLoggedIn(token);
+
         Basket basket = basketRepository.findById(basketId).orElseThrow(
                 () -> new NoSuchElementException("Does not exist a basket with this id")
         );
@@ -98,7 +104,9 @@ public class BasketServiceImp implements BasketService {
 
     @Transactional
     @Override
-    public Basket removeBookFromBasket(int bookId, int basketId) {
+    public Basket removeBookFromBasket(String token, int bookId, int basketId) {
+        JwtUtil.verifyIsLoggedIn(token);
+
         Basket basket = basketRepository.findById(basketId).orElseThrow(
                 () -> new NoSuchElementException("Does not exist a basket with this id"));
 
@@ -110,7 +118,9 @@ public class BasketServiceImp implements BasketService {
 
     @Transactional
     @Override
-    public Basket decrementBookFromBasket(int bookId, int basketId) {
+    public Basket decrementBookFromBasket(String token, int bookId, int basketId) {
+        JwtUtil.verifyIsLoggedIn(token);
+
         Basket basket = basketRepository.findById(basketId).orElseThrow(
                 () -> new NoSuchElementException("Does not exist a basket with this id"));
 

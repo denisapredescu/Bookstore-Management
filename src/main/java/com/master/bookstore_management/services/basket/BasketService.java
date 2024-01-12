@@ -4,10 +4,10 @@ import com.master.bookstore_management.dtos.BasketDetails;
 import com.master.bookstore_management.models.Basket;
 
 public interface BasketService {
-    Basket createBasket(int userId);
+    Basket createBasket(String token, int userId);
     Basket sentOrder(String token, int userId);
-    BasketDetails getBasket(int userId);
-    Basket addBookToBasket(int bookId, int basketId);
-    Basket removeBookFromBasket(int bookId, int basketId);
-    Basket decrementBookFromBasket(int bookId, int basketId);
+    BasketDetails getBasket(String token, int userId);
+    Basket addBookToBasket(String token, int bookId, int basketId);
+    Basket removeBookFromBasket(String token, int bookId, int basketId);
+    Basket decrementBookFromBasket(String token, int bookId, int basketId);
 }

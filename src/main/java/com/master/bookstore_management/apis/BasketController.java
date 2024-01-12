@@ -16,8 +16,9 @@ public class BasketController {
     }
 
     @PostMapping("/createBasket/{userId}")
-    public ResponseEntity<Basket> createBasket(@PathVariable int userId){
-        return ResponseEntity.ok(basketService.createBasket(userId));
+    public ResponseEntity<Basket> createBasket(@RequestHeader(name = "userToken") String token,
+                                               @PathVariable int userId){
+        return ResponseEntity.ok(basketService.createBasket(token, userId));
     }
 
     @PatchMapping("/sentOrder/{userId}")
@@ -27,23 +28,29 @@ public class BasketController {
     }
 
     @GetMapping("/getBasket/{userId}")
-    public ResponseEntity<BasketDetails> getBasket(@PathVariable int userId){
-        return ResponseEntity.ok(basketService.getBasket(userId));
+    public ResponseEntity<BasketDetails> getBasket(@RequestHeader(name = "userToken") String token,
+                                                   @PathVariable int userId){
+        return ResponseEntity.ok(basketService.getBasket(token, userId));
     }
 
     @PostMapping("/addBookToBasket/{bookId}/{basketId}")
-    public  ResponseEntity<Basket> addBookToBasket(@PathVariable int bookId,
+    public  ResponseEntity<Basket> addBookToBasket(@RequestHeader(name = "userToken") String token,
+                                                   @PathVariable int bookId,
                                                    @PathVariable int basketId) {
-        return  ResponseEntity.ok(basketService.addBookToBasket(bookId, basketId));
+        return  ResponseEntity.ok(basketService.addBookToBasket(token, bookId, basketId));
     }
 
     @DeleteMapping("/removeBookFromBasket/{bookId}/{basketId}")
-    public  ResponseEntity<Basket> removeBookFromBasket(@PathVariable int bookId, @PathVariable int basketId) {
-        return  ResponseEntity.ok(basketService.removeBookFromBasket(bookId, basketId));
+    public  ResponseEntity<Basket> removeBookFromBasket(@RequestHeader(name = "userToken") String token,
+                                                        @PathVariable int bookId,
+                                                        @PathVariable int basketId) {
+        return  ResponseEntity.ok(basketService.removeBookFromBasket(token, bookId, basketId));
     }
 
     @PatchMapping("/decrementBookFromBasket/{bookId}/{basketId}")
-    public ResponseEntity<Basket> decrementBookFromBasket(@PathVariable int bookId, @PathVariable int basketId) {
-        return ResponseEntity.ok(basketService.decrementBookFromBasket(bookId, basketId));
+    public ResponseEntity<Basket> decrementBookFromBasket(@RequestHeader(name = "userToken") String token,
+                                                          @PathVariable int bookId,
+                                                          @PathVariable int basketId) {
+        return ResponseEntity.ok(basketService.decrementBookFromBasket(token, bookId, basketId));
     }
 }
