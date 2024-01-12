@@ -26,8 +26,8 @@ public class AuthorController {
     @PatchMapping("/update/{id}")
     public ResponseEntity<Author> updateAuthor(@PathVariable int id,
                                            @RequestHeader(name = "userToken") String token,
-                                           @Valid @RequestBody Author newAuthor){
-        return ResponseEntity.ok(authorService.updateAuthor(token, newAuthor, id));
+                                           @Valid @RequestBody Author updateAuthor){
+        return ResponseEntity.ok(authorService.updateAuthor(token, updateAuthor, id));
     }
 
     @DeleteMapping("/delete/{id}")
