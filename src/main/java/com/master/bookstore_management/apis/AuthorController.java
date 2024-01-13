@@ -48,7 +48,7 @@ public class AuthorController {
     public ResponseEntity<Author> updateAuthor(
             @PathVariable @Parameter(description = "Author ID", required = true) int id,
             @RequestHeader(name = "userToken") @Parameter(description = "User token for authentication. If is not contain an admin role, it will throw error", required = true) String token,
-            @Valid @RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Updated author details (firstname, lastname, nationality)", required = true) Author updateAuthor){
+            @Valid @RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Update author details (firstname, lastname, nationality). The id field can be erased", required = true) Author updateAuthor){
         return ResponseEntity.ok(authorService.updateAuthor(token, updateAuthor, id));
     }
 

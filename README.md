@@ -226,6 +226,25 @@ The route to access the swagger: [<i>http://localhost:8000/swagger-ui/index.html
 
 </details>
 
+<details><summary><b>Examples of functionalities documentation in swagger</b></summary>
+<br>
+<details><summary><i>Update an author details functionality</i></summary>
+<p align="center">
+  <img src="pictures/update author functionality.png" alt="update author functionality">
+</p>
+</details>
+
+
+<details><summary><i>Link an author to a book functionality </i></summary>
+
+<p align="center">
+  <img src="pictures/addAuthorToBook functionality.png" alt="addAuthorToBook functionality">
+</p>
+</details>
+<br>
+
+</details>
+
 ## <i>The functionality of the application will be demonstrated using Postman</i>
 
 To add a parameter in the request header using *@RequestHeader* you should write 
