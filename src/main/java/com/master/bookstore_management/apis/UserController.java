@@ -30,22 +30,18 @@ public class UserController {
     }
 
     @Operation(summary = "Create a new user", responses = {
-            @ApiResponse(responseCode = "200", description = "User created successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "200", description = "User created successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping("/signUp")
     public ResponseEntity<User> create(
-            @Valid @RequestBody @Parameter(description = "User details", required = true) User newUser){
+            @Valid @RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User details", required = true) User newUser){
         return ResponseEntity.ok(userService.create(newUser));
     }
 
     @Operation(summary = "Update an existing user. Anyone can update his details, but the user should be logged in aka has a valid token", responses = {
-            @ApiResponse(responseCode = "200", description = "User updated successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "200", description = "User updated successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -53,7 +49,7 @@ public class UserController {
     public ResponseEntity<User> update(
             @RequestHeader(name = "userToken") @Parameter(description = "User token for authentication. Anyone can update his details, but the user should be logged in aka has a valid token", required = true) String token,
             @PathVariable @Parameter(description = "User ID", required = true) Integer id,
-            @Valid @RequestBody @Parameter(description = "Updated user details (firstname, lastname, birthday)", required = true) UpdateUser updateUser){
+            @Valid @RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Updated user details (firstname, lastname, birthday)", required = true) UpdateUser updateUser){
         return ResponseEntity.ok(userService.update(token, id, updateUser));
     }
 
@@ -71,9 +67,7 @@ public class UserController {
     }
 
     @Operation(summary = "Login and retrieve user details (user ID, email, TOKEN)", responses = {
-            @ApiResponse(responseCode = "200", description = "Login successful",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "200", description = "Login successful"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -85,9 +79,7 @@ public class UserController {
     }
 
     @Operation(summary = "Get a user by ID", responses = {
-            @ApiResponse(responseCode = "200", description = "User retrieved successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "200", description = "User retrieved successfully"),
             @ApiResponse(responseCode = "404", description = "User not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -97,9 +89,7 @@ public class UserController {
     }
 
     @Operation(summary = "Get a list of all users. Just an user with an admin role can access the users", responses = {
-            @ApiResponse(responseCode = "200", description = "List of users retrieved successfully",
-                    content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = List.class))),
+            @ApiResponse(responseCode = "200", description = "List of users retrieved successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/getUsers")

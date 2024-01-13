@@ -3,7 +3,6 @@ package com.master.bookstore_management.apis;
 import com.master.bookstore_management.models.Author;
 import com.master.bookstore_management.models.Book;
 import com.master.bookstore_management.models.Category;
-import com.master.bookstore_management.models.User;
 import com.master.bookstore_management.services.book.BookService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,9 +28,7 @@ public class BookController {
     }
 
     @Operation(summary = "Add a new book. Just an user with an admin role can add", responses = {
-            @ApiResponse(responseCode = "200", description = "Book added successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Book.class))),
+            @ApiResponse(responseCode = "200", description = "Book added successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -43,9 +40,7 @@ public class BookController {
     }
 
     @Operation(summary = "Update an existing book. Just an user with an admin role can update", responses = {
-            @ApiResponse(responseCode = "200", description = "Book updated successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Book.class))),
+            @ApiResponse(responseCode = "200", description = "Book updated successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -58,9 +53,7 @@ public class BookController {
     }
 
     @Operation(summary = "Add an author to a book. Just an user with an admin role can add", responses = {
-            @ApiResponse(responseCode = "200", description = "Author added to the book successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Book.class))),
+            @ApiResponse(responseCode = "200", description = "Author added to the book successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -73,9 +66,7 @@ public class BookController {
     }
 
     @Operation(summary = "Add categories to a book. Just an user with an admin role can add", responses = {
-            @ApiResponse(responseCode = "200", description = "Categories added to the book successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Book.class))),
+            @ApiResponse(responseCode = "200", description = "Categories added to the book successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -101,9 +92,7 @@ public class BookController {
     }
 
     @Operation(summary = "Get all books by admin. Just an user with an admin role can access the list", responses = {
-            @ApiResponse(responseCode = "200", description = "List of books retrieved successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = List.class))),
+            @ApiResponse(responseCode = "200", description = "List of books retrieved successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/getAllByAdmin")
@@ -113,9 +102,7 @@ public class BookController {
     }
 
     @Operation(summary = "Get available books", responses = {
-            @ApiResponse(responseCode = "200", description = "List of available books retrieved successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = List.class))),
+            @ApiResponse(responseCode = "200", description = "List of available books retrieved successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/getAvailable")
@@ -124,9 +111,7 @@ public class BookController {
     }
 
     @Operation(summary = "Get books by author's first and last name", responses = {
-            @ApiResponse(responseCode = "200", description = "List of books by author retrieved successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = List.class))),
+            @ApiResponse(responseCode = "200", description = "List of books by author retrieved successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/getBooksByAuthor/{firstname}/{lastName}")
@@ -137,9 +122,7 @@ public class BookController {
     }
 
     @Operation(summary = "Get books by category's name", responses = {
-            @ApiResponse(responseCode = "200", description = "List of books by category retrieved successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = List.class))),
+            @ApiResponse(responseCode = "200", description = "List of books by category retrieved successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/getBooksByCategory/{category}")

@@ -24,9 +24,7 @@ public class BasketController {
     }
 
     @Operation(summary = "Create a empty basket for a user", responses = {
-            @ApiResponse(responseCode = "200", description = "Basket created successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Basket.class))),
+            @ApiResponse(responseCode = "200", description = "Basket created successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -38,9 +36,7 @@ public class BasketController {
     }
 
     @Operation(summary = "Send an order from the bookstore. All the books from basket will be ordered", responses = {
-            @ApiResponse(responseCode = "200", description = "Order sent successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Basket.class))),
+            @ApiResponse(responseCode = "200", description = "Order sent successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -52,9 +48,7 @@ public class BasketController {
     }
 
     @Operation(summary = "Get basket details for a user. The user has to be logged in to access his basket", responses = {
-            @ApiResponse(responseCode = "200", description = "Basket details retrieved successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Basket.class))),
+            @ApiResponse(responseCode = "200", description = "Basket details retrieved successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -66,9 +60,7 @@ public class BasketController {
     }
 
     @Operation(summary = "Add a book to the basket or increase the number of that book in basket", responses = {
-            @ApiResponse(responseCode = "200", description = "Book added to the basket successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Basket.class))),
+            @ApiResponse(responseCode = "200", description = "Book added to the basket successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -82,9 +74,7 @@ public class BasketController {
     }
 
     @Operation(summary = "Remove a book from the basket. It removes all the copies of that book from basket", responses = {
-            @ApiResponse(responseCode = "200", description = "Book removed from the basket successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Basket.class))),
+            @ApiResponse(responseCode = "200", description = "Book removed from the basket successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
@@ -97,9 +87,7 @@ public class BasketController {
     }
 
     @Operation(summary = "Decrement a book from the basket. It removes one copy of that book from basket", responses = {
-            @ApiResponse(responseCode = "200", description = "Book decremented from the basket successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Basket.class))),
+            @ApiResponse(responseCode = "200", description = "Book decremented from the basket successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
