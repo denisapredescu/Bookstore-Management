@@ -34,38 +34,21 @@ public class ExceptionsHandler extends BaseExceptionHandler {
 
     @ExceptionHandler(EmailAlreadyUsedException.class)
     public ResponseEntity<Object> handleEmailAlreadyUsedException(EmailAlreadyUsedException ex, WebRequest request) {
-        return  buildResponse(ex, request);
+        return buildResponse(ex, request);
     }
 
     @ExceptionHandler(DeletedBookException.class)
     public ResponseEntity<Object> handleDeletedBookException(DeletedBookException ex, WebRequest request) {
-        return  buildResponse(ex, request);
+        return buildResponse(ex, request);
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("timestamp", Instant.now().toString());
-//        body.put("status", HttpStatus.NOT_FOUND.value());
-//        body.put("error", "Not Found");
-//        body.put("message", ex.getMessage());
-//        body.put("path", request.getDescription(false).replace("uri=", ""));
-
-//        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {;
         return setResponseBody(ex, request, HttpStatus.NOT_FOUND, "Not Found");
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("timestamp", Instant.now().toString());
-//        body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-//        body.put("error", "Validation failed");
-//        body.put("message", ex.getMessage());
-//        body.put("path", request.getDescription(false).replace("uri=", ""));
-//
-//        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-
         return setResponseBody(ex, request, HttpStatus.INTERNAL_SERVER_ERROR, "Validation failed");
     }
 
@@ -78,13 +61,6 @@ public class ExceptionsHandler extends BaseExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
 
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("timestamp", Instant.now().toString());
-//        body.put("status", HttpStatus.BAD_REQUEST.value());
-//        body.put("errors", errors);
-//        body.put("message", ex.getMessage());
-//
-//        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
         return setResponseBody(ex, request, HttpStatus.BAD_REQUEST, errors.toString());
     }
 
