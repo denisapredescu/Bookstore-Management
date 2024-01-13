@@ -235,17 +235,22 @@ To add a parameter in the request header using *@RequestHeader* you should write
 > **foo** is the key <br>
 > **bar** is the value
 
-> ADMIN VERSION:
+> **ADMIN VERSION**:
 > 
 > pm.request.headers.add("userToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEZW5pc2FQcmVkZXNjdSIsInJvbGUiOiJBRE1JTiJ9.ZA0vxSE7keltGZWcNYlRTor-TBOXOrUxFbCsUleok4Y");
 
-> CUSTOMER version:
+> **CUSTOMER version**:
 >
 > pm.request.headers.add("userToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VydXNlciIsInJvbGUiOiJVU0VSIn0.lkIf0276-9gS9nk9M_VEgoabl39m9qYIZuPa5zP4vpg");
 
-
+#### ADMIN TOKEN
 <p align="center">
   <img src="pictures/request header example.png" alt="request header example">
+</p>
+
+#### CUSTOMER (NOT ADMIN) TOKEN
+<p align="center">
+  <img src="pictures/request header for customer role.png" alt="request header for customer role">
 </p>
 
 <details><summary><b>The collection of functionalities of the application in Postman</b></summary>
@@ -272,6 +277,19 @@ To add a parameter in the request header using *@RequestHeader* you should write
   <img src="pictures/exception_folder.png" alt="exception_folder">
 </p>
 
+</details>
+
+<details><summary><b>Handler class</b></summary>
+
+<p align="center">
+  <img src="pictures/handler_1.png" alt="handler_1">
+</p>
+
+<br>
+
+<p align="center">
+  <img src="pictures/handler_2.png" alt="handler_2">
+</p>
 </details>
 
 ### Example of thrown and caught exceptions 
