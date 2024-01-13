@@ -1,6 +1,7 @@
 package com.master.bookstore_management.dtos;
 
 import java.util.List;
+import java.util.Objects;
 
 public class BasketDetails {
     private int id;
@@ -41,5 +42,30 @@ public class BasketDetails {
 
     public int getUserId() {
         return userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasketDetails that = (BasketDetails) o;
+        return id == that.id && userId == that.userId && cost == that.cost && Objects.equals(sent, that.sent) && Objects.equals(email, that.email) && Objects.equals(books, that.books);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, sent, userId, email, cost, books);
+    }
+
+    @Override
+    public String toString() {
+        return "BasketDetails{" +
+                "id=" + id +
+                ", sent='" + sent + '\'' +
+                ", userId=" + userId +
+                ", email='" + email + '\'' +
+                ", cost=" + cost +
+                ", books=" + books +
+                '}';
     }
 }

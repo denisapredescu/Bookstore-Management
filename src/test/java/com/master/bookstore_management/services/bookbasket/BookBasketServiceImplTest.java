@@ -55,7 +55,7 @@ class BookBasketServiceImplTest {
             BOOK.getPrice(),
             BOOK,
             BASKET
-    );;
+    );
 
     @InjectMocks
     private BookBasketServiceImpl bookBasketServiceUnderTest;
