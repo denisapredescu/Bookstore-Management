@@ -87,6 +87,91 @@
 
 ## <i>Unit tests for all REST endpoints and services</i>
 
+<details><summary><b>Folder with all the controller and service tests</b></summary>
+<p align="center">
+  <img src="pictures/folder_tests.png" alt="folder_tests">
+</p>
+</details>
+
+<details><summary><b>Tests passed for controllers</b></summary>
+<br>
+
+<details><summary><i>AuthorControllerTest</i></summary>
+    <p align="center">
+      <img src="pictures/authorControllerTest.png" alt="authorControllerTest">
+    </p>
+</details>
+
+<details><summary><i>BasketControllerTest</i></summary>
+    <p align="center">
+      <img src="pictures/basketControllerTest.png" alt="basketControllerTest">
+    </p>
+</details>
+    
+<details><summary><i>BookControllerTest</i></summary>
+    <p align="center">
+      <img src="pictures/bookControllerTest.png" alt="bookControllerTest">
+    </p>
+</details>
+    
+<details><summary><i>CategoryControllerTest</i></summary>
+    <p align="center">
+      <img src="pictures/categoryControllerTest.png" alt="categoryControllerTest">
+    </p>
+</details>
+
+<details><summary><i>UserControllerTest</i></summary>
+    <p align="center">
+      <img src="pictures/userControllerTest.png" alt="userControllerTest">
+    </p>
+</details>
+<br>
+
+</details>
+
+
+<details><summary><b>Tests passed for services</b></summary>
+<br>
+
+<details><summary><i>AuthorServiceTest</i></summary>
+    <p align="center">
+      <img src="pictures/authorServiceTest.png" alt="authorServiceTest">
+    </p>
+</details>
+
+<details><summary><i>BasketServiceTest</i></summary>
+    <p align="center">
+      <img src="pictures/basketServiceTest.png" alt="basketServiceTest">
+    </p>
+</details>
+
+<details><summary><i>BookServiceTest</i></summary>
+    <p align="center">
+      <img src="pictures/bookServiceTest.png" alt="bookServiceTest">
+    </p>
+</details>
+
+<details><summary><i>BookBasketServiceTest</i></summary>
+    <p align="center">
+      <img src="pictures/bookBasketServiceTest.png" alt="bookBasketServiceTest">
+    </p>
+</details>
+
+<details><summary><i>CategoryServiceTest</i></summary>
+    <p align="center">
+      <img src="pictures/categoryServiceTest.png" alt="categoryServiceTest">
+    </p>
+</details>
+
+<details><summary><i>UserServiceTest</i></summary>
+    <p align="center">
+      <img src="pictures/userServiceTest.png" alt="userServiceTest">
+    </p>
+</details>
+<br>
+
+</details>
+
 
 ## <i>The data within the application should be persisted in a database. Define at least 6 entities that will be persisted in the database, and at least 4 relations between them</i>
  
