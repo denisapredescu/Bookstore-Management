@@ -122,14 +122,14 @@ class UserServiceImpTest {
 
     @Test
     void update_UserNotLoggedInException() {
-        assertThrows(UserNotLoggedInException.class, () -> userServiceUnderTest.update(TOKEN_NOT_LOGGED_IN, USER_ID, any(UpdateUser.class)));
+        assertThrows(UserNotLoggedInException.class, () -> userServiceUnderTest.update(TOKEN_NOT_LOGGED_IN, USER_ID, new UpdateUser()));
         verify(userRepository, never()).findById(any());
         verify(userRepository, never()).save(any());
     }
 
     @Test
     void update_InvalidTokenException() {
-        assertThrows(InvalidTokenException.class, () -> userServiceUnderTest.update(TOKEN_INVALID, USER_ID, any(UpdateUser.class)));
+        assertThrows(InvalidTokenException.class, () -> userServiceUnderTest.update(TOKEN_INVALID, USER_ID, new UpdateUser()));
         verify(userRepository, never()).findById(any());
         verify(userRepository, never()).save(any());
     }
@@ -148,7 +148,7 @@ class UserServiceImpTest {
         when(userRepository.findById(eq(USER_ID))).thenReturn(Optional.of(USER));
         when(userRepository.save(any())).thenThrow(DatabaseError.class);
 
-        assertThrows(DatabaseError.class, () -> userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, any(UpdateUser.class)));
+        assertThrows(DatabaseError.class, () -> userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, new UpdateUser()));
         verify(userRepository, times(1)).findById(USER_ID);
         verify(userRepository, times(1)).save(USER);
     }

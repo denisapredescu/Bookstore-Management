@@ -45,17 +45,6 @@ class BasketControllerTest {
                     "CUSTOMER"
             )
     );
-    private static final BasketDetails GET_BASKET = new BasketDetails(
-            0,
-            "false",
-            USER_ID,
-            BASKET.getUser().getEmail(),
-            100,
-            List.of(
-                    new BookFromBasketDetails("book 1", 50, 1),
-                    new BookFromBasketDetails("book 2", 25, 2)
-            )
-    );
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -94,9 +83,21 @@ class BasketControllerTest {
 
     @Test
     void getBasket() throws Exception {
-        when(basketService.getBasket(TOKEN_CUSTOMER, USER_ID)).thenReturn(GET_BASKET);
+        BasketDetails getBasket = new BasketDetails(
+                0,
+                BASKET.getSent().toString(),
+                USER_ID,
+                BASKET.getUser().getEmail(),
+                BASKET.getCost(),
+                List.of(
+                        new BookFromBasketDetails("book 1", 50, 1),
+                        new BookFromBasketDetails("book 2", 25, 2)
+                )
+        );
 
-        String basketJson = mapper.writeValueAsString(GET_BASKET);
+        when(basketService.getBasket(TOKEN_CUSTOMER, USER_ID)).thenReturn(getBasket);
+
+        String basketJson = mapper.writeValueAsString(getBasket);
 
         mockMvc.perform(get("/basket/getBasket/{userId}", USER_ID)
                         .header("userToken", TOKEN_CUSTOMER)

@@ -5,6 +5,9 @@ public class UpdateUser {
     String lastName;
     String birthday;
 
+    public UpdateUser() {
+    }
+
     public UpdateUser(String firstName, String lastName, String birthday) {
         this.firstName = firstName;
         this.lastName = lastName;

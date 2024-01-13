@@ -45,7 +45,7 @@ class CategoryServiceImplTest {
 
     @Test
     void addCategory_UserNotLoggedInException() {
-        assertThrows(UnauthorizedUserException.class, () -> categoryServiceUnderTest.addCategory(TOKEN_NOT_LOGGED_IN, CATEGORY));
+        assertThrows(UserNotLoggedInException.class, () -> categoryServiceUnderTest.addCategory(TOKEN_NOT_LOGGED_IN, CATEGORY));
         verify(categoryRepository, never()).save(any());
     }
 
