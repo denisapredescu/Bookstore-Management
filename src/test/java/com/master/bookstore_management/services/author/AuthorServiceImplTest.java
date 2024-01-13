@@ -42,7 +42,7 @@ class AuthorServiceImplTest {
 
     @Test
     void addAuthor_UnauthorizedUserException() {
-        assertThrows(UserNotLoggedInException.class, () -> authorServiceUnderTest.addAuthor(TOKEN_NOT_LOGGED_IN, AUTHOR));
+        assertThrows(UnauthorizedUserException.class, () -> authorServiceUnderTest.addAuthor(TOKEN_CUSTOMER, AUTHOR));
         verify(authorRepository, never()).save(any());
     }
 
@@ -133,14 +133,9 @@ class AuthorServiceImplTest {
     void updateAuthor_NoSuchElementException() {
         when(authorRepository.findById(eq(AUTHOR_ID))).thenThrow(NoSuchElementException.class);
 
-        Author update_data = new Author(null, "update firstName", "update lastName", "update nationality");
-        AUTHOR.setLastName(update_data.getLastName());
-        AUTHOR.setFirstName(update_data.getFirstName());
-        AUTHOR.setNationality(update_data.getNationality());
-
-        assertThrows(NoSuchElementException.class, () -> authorServiceUnderTest.updateAuthor(TOKEN_ADMIN, update_data, AUTHOR_ID));
+        assertThrows(NoSuchElementException.class, () -> authorServiceUnderTest.updateAuthor(TOKEN_ADMIN, any(), AUTHOR_ID));
         verify(authorRepository, times(1)).findById(AUTHOR_ID);
-        verify(authorRepository, never()).save(AUTHOR);
+        verify(authorRepository, never()).save(any());
     }
 
     @Test
@@ -242,24 +237,18 @@ class AuthorServiceImplTest {
 
     @Test
     void getAuthor_returns_null() {
-        String firstName = "firstName";
-        String lastName = "lastName";
+        when(authorRepository.getAuthor(any(), any())).thenReturn(Optional.empty());
 
-        when(authorRepository.getAuthor(firstName, lastName)).thenReturn(Optional.empty());
-
-        Author actualAuthor = authorServiceUnderTest.getAuthor(firstName, lastName);
-        verify(authorRepository, times(1)).getAuthor(firstName, lastName);
+        Author actualAuthor = authorServiceUnderTest.getAuthor(any(), any());
+        verify(authorRepository, times(1)).getAuthor(any(), any());
         assertNull(actualAuthor);
     }
 
     @Test
     void getAuthor_DatabaseError() {
-        String firstName = "firstName";
-        String lastName = "lastName";
+        when(authorRepository.getAuthor(any(), any())).thenThrow(DatabaseError.class);
 
-        when(authorRepository.getAuthor(firstName, lastName)).thenThrow(DatabaseError.class);
-
-        assertThrows(DatabaseError.class, () -> authorServiceUnderTest.getAuthor(firstName, lastName));
-        verify(authorRepository, times(1)).getAuthor(firstName, lastName);
+        assertThrows(DatabaseError.class, () -> authorServiceUnderTest.getAuthor(any(), any()));
+        verify(authorRepository, times(1)).getAuthor(any(), any());
     }
 }

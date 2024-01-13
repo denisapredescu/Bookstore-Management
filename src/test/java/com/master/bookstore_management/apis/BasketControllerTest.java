@@ -41,7 +41,7 @@ class BasketControllerTest {
             "CUSTOMER"
     );
     private static final Basket BASKET = new Basket(
-           0,
+            BASKET_ID,
            false,
            100,
            USER

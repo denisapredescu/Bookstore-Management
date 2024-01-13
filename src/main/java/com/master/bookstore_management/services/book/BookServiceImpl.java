@@ -31,8 +31,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book addBook(String token, Book newBook) {
         JwtUtil.verifyAdmin(token);
-        Book book = bookRepository.save(newBook);
-        return bookRepository.save(book);
+        return bookRepository.save(newBook);
     }
 
     @Transactional
@@ -74,21 +73,16 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book updateBook(String token, Book bookToUpdate, Integer id) {
         JwtUtil.verifyAdmin(token);
-        Book book = bookRepository.findById(id).orElseThrow(
-                () -> new NoSuchElementException("Book with this id not found"));
+        Book book = getBookById(id);
 
         if (book.getIs_deleted())
             throw new DeletedBookException("Cannot update a deleted book");
 
         book.setName(bookToUpdate.getName());
-        book.setIs_deleted(bookToUpdate.getIs_deleted());
         book.setSeries_name(bookToUpdate.getSeries_name());
         book.setPrice(bookToUpdate.getPrice());
         book.setVolume(bookToUpdate.getVolume());
         book.setYear(bookToUpdate.getYear());
-
-        if (bookToUpdate.getAuthor() != null)
-            addAuthorToBook(token, book.getId(), bookToUpdate.getAuthor());
 
         return bookRepository.save(book);
     }
@@ -97,9 +91,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(String token, Integer id) {
         JwtUtil.verifyAdmin(token);
-        Book book = bookRepository.findById(id).orElseThrow(
-                () -> new NoSuchElementException("Book with this id not found"));
+
+        Book book = getBookById(id);
         book.setIs_deleted(true);
+
         bookRepository.save(book);
     }
 
@@ -128,7 +123,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBookById(Integer bookId) {
         return bookRepository.findById(bookId).orElseThrow(
-                () -> new NoSuchElementException("Does not exist a book with this id")
+                () -> new NoSuchElementException("Book with this id not found")
         );
     }
 }
