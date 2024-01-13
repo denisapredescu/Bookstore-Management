@@ -31,26 +31,25 @@ class BasketControllerTest {
     private static final Integer USER_ID = 0;
     private static final Integer BOOK_ID = 1;
     private static final Integer BASKET_ID = 2;
-    private static final User USER = new User(
-            USER_ID,
-            "firstName",
-            "lastName",
-            "08-02-2001",
-            "denisa.predescu@gmail.com",
-            "Denisa01!",
-            "CUSTOMER"
-    );
     private static final Basket BASKET = new Basket(
             BASKET_ID,
            false,
            100,
-           USER
+            new User(
+                    USER_ID,
+                    "firstName",
+                    "lastName",
+                    "08-02-2001",
+                    "denisa.predescu@gmail.com",
+                    "Denisa01!",
+                    "CUSTOMER"
+            )
     );
     private static final BasketDetails GET_BASKET = new BasketDetails(
             0,
             "false",
             USER_ID,
-            USER.getEmail(),
+            BASKET.getUser().getEmail(),
             100,
             List.of(
                     new BookFromBasketDetails("book 1", 50, 1),

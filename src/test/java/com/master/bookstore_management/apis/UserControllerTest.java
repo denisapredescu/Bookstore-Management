@@ -46,34 +46,6 @@ class UserControllerTest {
             INPUT_USER.getPassword(),
             INPUT_USER.getRole()
     );
-    private static final UpdateUser UPDATE_USER = new UpdateUser(
-            "denisa",
-            "predescu",
-            "08-02-2001"
-    ) ;
-    private static final UserResponse USER_RESPONSE = new UserResponse(
-            USER.getId(),
-            USER.getEmail(),
-            TOKEN_ADMIN
-    );
-    private static final List<UserDetails> USER_DETAILS = List.of(
-            new UserDetails(
-                    USER.getId(),
-                    USER.getFirstName(),
-                    USER.getLastName(),
-                    USER.getBirthday(),
-                    USER.getEmail(),
-                    USER.getRole()
-            ),
-            new UserDetails(
-                    1,
-                    "user 2",
-                    "user 2",
-                    "00-00-0000",
-                    "user@gmail.com",
-                    "CUSTOMER"
-            )
-    );
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -99,13 +71,19 @@ class UserControllerTest {
 
     @Test
     void update() throws Exception {
-        USER.setFirstName(UPDATE_USER.getFirstName());
-        USER.setLastName(UPDATE_USER.getLastName());
-        USER.setBirthday(UPDATE_USER.getBirthday());
+        UpdateUser update_user = new UpdateUser(
+                "denisa",
+                "predescu",
+                "08-02-2001"
+        ) ;
+
+        USER.setFirstName(update_user.getFirstName());
+        USER.setLastName(update_user.getLastName());
+        USER.setBirthday(update_user.getBirthday());
 
         when(userService.update(eq(TOKEN_ADMIN), eq(USER_ID), any(UpdateUser.class))).thenReturn(USER);
 
-        String updateUserJson = mapper.writeValueAsString(UPDATE_USER);
+        String updateUserJson = mapper.writeValueAsString(update_user);
         String updatedUserJson = mapper.writeValueAsString(USER);
 
         mockMvc.perform(patch("/user/update/{id}", USER_ID)
@@ -129,10 +107,15 @@ class UserControllerTest {
     void login() throws Exception {
         String email = USER.getEmail();
         String password = USER.getPassword();
+        UserResponse user_response = new UserResponse(
+                USER.getId(),
+                USER.getEmail(),
+                TOKEN_ADMIN
+        );
 
-        when(userService.login(email, password)).thenReturn(USER_RESPONSE);
+        when(userService.login(email, password)).thenReturn(user_response);
 
-        String userResponseJson = mapper.writeValueAsString(USER_RESPONSE);
+        String userResponseJson = mapper.writeValueAsString(user_response);
 
         mockMvc.perform(get("/user/login/{email}", email)
                         .header("password", password)
@@ -155,9 +138,27 @@ class UserControllerTest {
 
     @Test
     void getUsers() throws Exception {
-        when(userService.getUsers(TOKEN_ADMIN)).thenReturn(USER_DETAILS);
+        List<UserDetails> user_details = List.of(
+                new UserDetails(
+                        USER.getId(),
+                        USER.getFirstName(),
+                        USER.getLastName(),
+                        USER.getBirthday(),
+                        USER.getEmail(),
+                        USER.getRole()
+                ),
+                new UserDetails(
+                        1,
+                        "user 2",
+                        "user 2",
+                        "00-00-0000",
+                        "user@gmail.com",
+                        "CUSTOMER"
+                )
+        );
+        when(userService.getUsers(TOKEN_ADMIN)).thenReturn(user_details);
 
-        String usersJson = mapper.writeValueAsString(USER_DETAILS);
+        String usersJson = mapper.writeValueAsString(user_details);
 
         mockMvc.perform(get("/user/getUsers")
                         .header("userToken", TOKEN_ADMIN)
