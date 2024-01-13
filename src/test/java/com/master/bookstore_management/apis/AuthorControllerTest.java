@@ -21,14 +21,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class AuthorControllerTest {
     private static final String TOKEN_ADMIN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEZW5pc2FQcmVkZXNjdSIsInJvbGUiOiJBRE1JTiJ9.ZA0vxSE7keltGZWcNYlRTor-TBOXOrUxFbCsUleok4Y";
-
     private static final Author INPUT_AUTHOR = new Author(
             null,
             "firstName",
             "lastName",
             "nationality"
     );
-
     private static final Author AUTHOR = new Author(
             INPUT_AUTHOR.getId(),
             INPUT_AUTHOR.getFirstName(),

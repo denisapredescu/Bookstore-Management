@@ -27,6 +27,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public Category save(Category newCategory) {
+        if (newCategory == null)
+            return null;
+
         Category category = categoryRepository.findByName(newCategory.getName()).orElse(null);
 
         if(category == null) {

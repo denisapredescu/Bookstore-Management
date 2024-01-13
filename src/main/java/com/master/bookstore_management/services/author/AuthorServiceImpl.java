@@ -20,7 +20,7 @@ public class AuthorServiceImpl implements AuthorService{
     public Author addAuthor(String token, Author newAuthor) {
         JwtUtil.verifyAdmin(token);
 
-        return  save(newAuthor);
+        return save(newAuthor);
     }
 
     @Override

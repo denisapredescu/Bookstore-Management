@@ -46,7 +46,6 @@ class BasketControllerTest {
            100,
            USER
     );
-
     private static final BasketDetails GET_BASKET = new BasketDetails(
             0,
             "false",
@@ -58,6 +57,7 @@ class BasketControllerTest {
                     new BookFromBasketDetails("book 2", 25, 2)
             )
     );
+
     ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
@@ -65,6 +65,7 @@ class BasketControllerTest {
 
     @MockBean
     private BasketService basketService;
+
     @Test
     void createBasket() throws Exception {
         when(basketService.createBasket(TOKEN_CUSTOMER, USER_ID)).thenReturn(BASKET);

@@ -27,9 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class UserControllerTest {
     private static final String TOKEN_ADMIN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEZW5pc2FQcmVkZXNjdSIsInJvbGUiOiJBRE1JTiJ9.ZA0vxSE7keltGZWcNYlRTor-TBOXOrUxFbCsUleok4Y";
-
     private static final Integer USER_ID = 0;
-
     private static final User INPUT_USER = new User(
             0,
             "firstName",
@@ -39,7 +37,6 @@ class UserControllerTest {
             "Denisa01!",
             "ADMIN"
     );
-
     private static final User USER = new User(
             INPUT_USER.getId(),
             INPUT_USER.getFirstName(),

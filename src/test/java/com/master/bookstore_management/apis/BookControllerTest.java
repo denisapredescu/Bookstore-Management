@@ -25,7 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class BookControllerTest {
-    // valid token for an admin user
     private static final String TOKEN_ADMIN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEZW5pc2FQcmVkZXNjdSIsInJvbGUiOiJBRE1JTiJ9.ZA0vxSE7keltGZWcNYlRTor-TBOXOrUxFbCsUleok4Y";
     private static final Integer BOOK_ID = 0;
     private static final Book INPUT_BOOK = new Book(
@@ -52,7 +51,6 @@ class BookControllerTest {
             "lastName",
             "nationality"
     );
-
     private static final List<Category> CATEGORIES = List.of(
             new Category(
                     0, "category 1"

@@ -32,6 +32,7 @@ class CategoryControllerTest {
             INPUT_CATEGORY.getName()
     );
     private static final Integer CATEGORY_ID = 0;
+
     ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
