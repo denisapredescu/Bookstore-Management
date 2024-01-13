@@ -235,6 +235,15 @@ To add a parameter in the request header using *@RequestHeader* you should write
 > **foo** is the key <br>
 > **bar** is the value
 
+> ADMIN VERSION:
+> 
+> pm.request.headers.add("userToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEZW5pc2FQcmVkZXNjdSIsInJvbGUiOiJBRE1JTiJ9.ZA0vxSE7keltGZWcNYlRTor-TBOXOrUxFbCsUleok4Y");
+
+> CUSTOMER version:
+>
+> pm.request.headers.add("userToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VydXNlciIsInJvbGUiOiJVU0VSIn0.lkIf0276-9gS9nk9M_VEgoabl39m9qYIZuPa5zP4vpg");
+
+
 <p align="center">
   <img src="pictures/request header example.png" alt="request header example">
 </p>
