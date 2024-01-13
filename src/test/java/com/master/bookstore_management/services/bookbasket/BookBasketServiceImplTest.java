@@ -32,22 +32,20 @@ class BookBasketServiceImplTest {
             "Series",
             false
     );
-    private static final Integer USER_ID = 0;
-    private static final User USER = new User(
-            USER_ID,
-            "firstName",
-            "lastName",
-            "08-02-2001",
-            "denisa.predescu@gmail.com",
-            "Denisa01!",
-            "CUSTOMER"
-    );
     private static final Integer BASKET_ID = 0;
     private static final Basket BASKET = new Basket(
             BASKET_ID,
             false,
             0,
-            USER
+            new User(
+                    0,
+                    "firstName",
+                    "lastName",
+                    "08-02-2001",
+                    "denisa.predescu@gmail.com",
+                    "Denisa01!",
+                    "CUSTOMER"
+            )
     );
     private static final BookBasket BOOK_BASKET = new BookBasket(
             0,

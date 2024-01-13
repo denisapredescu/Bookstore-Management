@@ -43,11 +43,6 @@ class UserServiceImpTest {
             "Denisa01!",
             "CUSTOMER"
     );
-    private static final UpdateUser UPDATE_USER = new UpdateUser(
-            "denisa",
-            "predescu",
-            "08-02-2001"
-    ) ;
 
     @InjectMocks
     private UserServiceImp userServiceUnderTest;
@@ -87,28 +82,32 @@ class UserServiceImpTest {
     @Test
     void create_DatabaseError_at_save() {
         when(userRepository.getUserByEmail(USER.getEmail())).thenReturn(Optional.empty());
-        when(userRepository.save(USER)).thenThrow(DatabaseError.class);
+        when(userRepository.save(any())).thenThrow(DatabaseError.class);
 
         assertThrows(DatabaseError.class, () -> userServiceUnderTest.create(USER));
         verify(userRepository, times(1)).getUserByEmail(USER.getEmail());
-        verify(userRepository, times(1)).save(USER);
+        verify(userRepository, times(1)).save(any());
     }
 
     @Test
     void update() {
+         UpdateUser update_user = new UpdateUser(
+                "denisa",
+                "predescu",
+                "08-02-2001"
+         ) ;
+
         when(userRepository.findById(eq(USER_ID))).thenReturn(Optional.of(USER));
 
-        USER.setBirthday(UPDATE_USER.getBirthday());
-        USER.setLastName(UPDATE_USER.getLastName());
-        USER.setFirstName(UPDATE_USER.getFirstName());
+        USER.setBirthday(update_user.getBirthday());
+        USER.setLastName(update_user.getLastName());
+        USER.setFirstName(update_user.getFirstName());
 
         when(userRepository.save(any())).thenReturn(USER);
 
-        JwtUtil.verifyIsLoggedIn(TOKEN_CUSTOMER);
-        var result = userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, UPDATE_USER);
+        var result = userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, update_user);
         verify(userRepository, times(1)).findById(USER_ID);
         verify(userRepository).save(USER);
-
         assertEquals(USER, result);
     }
 
@@ -116,26 +115,21 @@ class UserServiceImpTest {
     void update_NoSuchElementException() {
         when(userRepository.findById(eq(USER_ID))).thenThrow(NoSuchElementException.class);
 
-        USER.setBirthday(UPDATE_USER.getBirthday());
-        USER.setLastName(UPDATE_USER.getLastName());
-        USER.setFirstName(UPDATE_USER.getFirstName());
-
-        JwtUtil.verifyIsLoggedIn(TOKEN_CUSTOMER);
-        assertThrows(NoSuchElementException.class, () -> userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, UPDATE_USER));
+        assertThrows(NoSuchElementException.class, () -> userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, any(UpdateUser.class)));
         verify(userRepository, times(1)).findById(USER_ID);
-        verify(userRepository, never()).save(USER);
+        verify(userRepository, never()).save(any());
     }
 
     @Test
     void update_UserNotLoggedInException() {
-        assertThrows(UserNotLoggedInException.class, () -> userServiceUnderTest.update(TOKEN_NOT_LOGGED_IN, USER_ID, UPDATE_USER));
+        assertThrows(UserNotLoggedInException.class, () -> userServiceUnderTest.update(TOKEN_NOT_LOGGED_IN, USER_ID, any(UpdateUser.class)));
         verify(userRepository, never()).findById(any());
         verify(userRepository, never()).save(any());
     }
 
     @Test
     void update_InvalidTokenException() {
-        assertThrows(InvalidTokenException.class, () -> userServiceUnderTest.update(TOKEN_INVALID, USER_ID, UPDATE_USER));
+        assertThrows(InvalidTokenException.class, () -> userServiceUnderTest.update(TOKEN_INVALID, USER_ID, any(UpdateUser.class)));
         verify(userRepository, never()).findById(any());
         verify(userRepository, never()).save(any());
     }
@@ -144,9 +138,7 @@ class UserServiceImpTest {
     void update_DatabaseError_at_findById() {
         when(userRepository.findById(eq(USER_ID))).thenThrow(DatabaseError.class);
 
-        JwtUtil.verifyIsLoggedIn(TOKEN_CUSTOMER);
-
-        assertThrows(DatabaseError.class, () -> userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, UPDATE_USER));
+        assertThrows(DatabaseError.class, () -> userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, any(UpdateUser.class)));
         verify(userRepository, times(1)).findById(USER_ID);
         verify(userRepository, never()).save(USER);
     }
@@ -156,9 +148,7 @@ class UserServiceImpTest {
         when(userRepository.findById(eq(USER_ID))).thenReturn(Optional.of(USER));
         when(userRepository.save(any())).thenThrow(DatabaseError.class);
 
-        JwtUtil.verifyIsLoggedIn(TOKEN_CUSTOMER);
-
-        assertThrows(DatabaseError.class, () -> userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, UPDATE_USER));
+        assertThrows(DatabaseError.class, () -> userServiceUnderTest.update(TOKEN_CUSTOMER, USER_ID, any(UpdateUser.class)));
         verify(userRepository, times(1)).findById(USER_ID);
         verify(userRepository, times(1)).save(USER);
     }
@@ -181,24 +171,18 @@ class UserServiceImpTest {
 
     @Test
     void login_NoSuchElementException() {
-        String email = USER.getEmail();
-        String password = USER.getPassword();
+        when(userRepository.getUser(any(), any())).thenThrow(NoSuchElementException.class);
 
-        when(userRepository.getUser(email, password)).thenThrow(NoSuchElementException.class);
-
-        assertThrows(NoSuchElementException.class, () -> userServiceUnderTest.login(email, password));
-        verify(userRepository, times(1)).getUser(email, password);
+        assertThrows(NoSuchElementException.class, () -> userServiceUnderTest.login(any(), any()));
+        verify(userRepository, times(1)).getUser(any(), any());
     }
 
     @Test
     void login_DatabaseError() {
-        String email = USER.getEmail();
-        String password = USER.getPassword();
+        when(userRepository.getUser(any(), any())).thenThrow(DatabaseError.class);
 
-        when(userRepository.getUser(email, password)).thenThrow(DatabaseError.class);
-
-        assertThrows(DatabaseError.class, () -> userServiceUnderTest.login(email, password));
-        verify(userRepository, times(1)).getUser(email, password);
+        assertThrows(DatabaseError.class, () -> userServiceUnderTest.login(any(), any()));
+        verify(userRepository, times(1)).getUser(any(), any());
     }
 
     @Test
@@ -240,7 +224,6 @@ class UserServiceImpTest {
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(USER));
 
         userServiceUnderTest.delete(TOKEN_CUSTOMER, USER_ID);
-
         verify(userRepository).findById(USER_ID);
         verify(userRepository).delete(USER);
     }
@@ -250,23 +233,22 @@ class UserServiceImpTest {
         when(userRepository.findById(USER_ID)).thenThrow(NoSuchElementException.class);
 
         assertThrows(NoSuchElementException.class, () -> userServiceUnderTest.delete(TOKEN_CUSTOMER, USER_ID));
-
         verify(userRepository).findById(USER_ID);
-        verify(userRepository, never()).delete(USER);
+        verify(userRepository, never()).delete(any());
     }
 
     @Test
     void delete_UserNotLoggedInException() {
         assertThrows(UserNotLoggedInException.class, () -> userServiceUnderTest.delete(TOKEN_NOT_LOGGED_IN, USER_ID));
         verify(userRepository, never()).findById(USER_ID);
-        verify(userRepository, never()).delete(USER);
+        verify(userRepository, never()).delete(any());
     }
 
     @Test
     void delete_InvalidTokenException() {
         assertThrows(InvalidTokenException.class, () -> userServiceUnderTest.delete(TOKEN_INVALID, USER_ID));
         verify(userRepository, never()).findById(USER_ID);
-        verify(userRepository, never()).delete(USER);
+        verify(userRepository, never()).delete(any());
     }
 
     @Test
@@ -274,9 +256,8 @@ class UserServiceImpTest {
         when(userRepository.findById(USER_ID)).thenThrow(DatabaseError.class);
 
         assertThrows(DatabaseError.class, () -> userServiceUnderTest.delete(TOKEN_ADMIN, USER_ID));
-
         verify(userRepository).findById(USER_ID);
-        verify(userRepository, never()).delete(USER);
+        verify(userRepository, never()).delete(any());
     }
 
     @Test

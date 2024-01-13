@@ -4,12 +4,8 @@ import com.master.bookstore_management.exceptions.exceptions.DatabaseError;
 import com.master.bookstore_management.exceptions.exceptions.InvalidTokenException;
 import com.master.bookstore_management.exceptions.exceptions.UnauthorizedUserException;
 import com.master.bookstore_management.exceptions.exceptions.UserNotLoggedInException;
-import com.master.bookstore_management.models.Author;
 import com.master.bookstore_management.models.Category;
-import com.master.bookstore_management.repositories.author.AuthorRepository;
 import com.master.bookstore_management.repositories.category.CategoryRepository;
-import com.master.bookstore_management.services.author.AuthorServiceImpl;
-import com.master.bookstore_management.token.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -95,7 +91,7 @@ class CategoryServiceImplTest {
     void save_DatabaseError_at_findByName() {
         when(categoryRepository.findByName(CATEGORY.getName())).thenThrow(DatabaseError.class);
 
-        assertThrows(DatabaseError.class, () ->  categoryServiceUnderTest.save(CATEGORY));
+        assertThrows(DatabaseError.class, () -> categoryServiceUnderTest.save(CATEGORY));
         verify(categoryRepository, times(1)).findByName(CATEGORY.getName());
         verify(categoryRepository, never()).save(CATEGORY);
     }
@@ -122,7 +118,6 @@ class CategoryServiceImplTest {
         var result = categoryServiceUnderTest.updateCategory(TOKEN_ADMIN, update_data, CATEGORY_ID);
         verify(categoryRepository, times(1)).findById(CATEGORY_ID);
         verify(categoryRepository).save(CATEGORY);
-
         assertEquals(CATEGORY, result);
     }
 
@@ -130,14 +125,9 @@ class CategoryServiceImplTest {
     void updateCategory_NoSuchElementException() {
         when(categoryRepository.findById(eq(CATEGORY_ID))).thenThrow(NoSuchElementException.class);
 
-        Category update_data = new Category(CATEGORY_ID, "update category");
-        CATEGORY.setName(update_data.getName());
-
-        when(categoryRepository.save(any())).thenReturn(CATEGORY);
-
-        assertThrows(NoSuchElementException.class, () -> categoryServiceUnderTest.updateCategory(TOKEN_ADMIN, update_data, CATEGORY_ID));
+        assertThrows(NoSuchElementException.class, () -> categoryServiceUnderTest.updateCategory(TOKEN_ADMIN, any(), CATEGORY_ID));
         verify(categoryRepository, times(1)).findById(CATEGORY_ID);
-        verify(categoryRepository, never()).save(CATEGORY);
+        verify(categoryRepository, never()).save(any());
     }
 
     @Test
@@ -167,7 +157,7 @@ class CategoryServiceImplTest {
 
         assertThrows(DatabaseError.class, () -> categoryServiceUnderTest.updateCategory(TOKEN_ADMIN, new Category(), CATEGORY_ID));
         verify(categoryRepository, times(1)).findById(CATEGORY_ID);
-        verify(categoryRepository, never()).save(CATEGORY);
+        verify(categoryRepository, never()).save(any());
     }
 
     @Test

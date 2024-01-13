@@ -230,7 +230,7 @@ class BookServiceImplTest {
     void addCategoriesToBook_NoSuchElementException() {
         when(bookRepository.findById(eq(BOOK_ID))).thenThrow(NoSuchElementException.class);
 
-        assertThrows(NoSuchElementException.class, () -> bookServiceUnderTest.addCategoriesToBook(TOKEN_ADMIN, BOOK_ID, CATEGORIES));
+        assertThrows(NoSuchElementException.class, () -> bookServiceUnderTest.addCategoriesToBook(TOKEN_ADMIN, BOOK_ID, any()));
         verify(bookRepository, times(1)).findById(BOOK_ID);
         verify(categoryService, never()).save(any(Category.class));
         verify(bookRepository, never()).save(BOOK);
@@ -240,7 +240,7 @@ class BookServiceImplTest {
     void addCategoriesToBook_DatabaseError_at_findById() {
         when(bookRepository.findById(eq(BOOK_ID))).thenThrow(DatabaseError.class);
 
-        assertThrows(DatabaseError.class, () -> bookServiceUnderTest.addCategoriesToBook(TOKEN_ADMIN, BOOK_ID, CATEGORIES));
+        assertThrows(DatabaseError.class, () -> bookServiceUnderTest.addCategoriesToBook(TOKEN_ADMIN, BOOK_ID, any()));
         verify(bookRepository, times(1)).findById(BOOK_ID);
         verify(categoryService, never()).save(any(Category.class));
         verify(bookRepository, never()).save(BOOK);
@@ -251,7 +251,7 @@ class BookServiceImplTest {
         BOOK.setIs_deleted(true);
 
         when(bookRepository.findById(eq(BOOK_ID))).thenReturn(Optional.of(BOOK));
-        assertThrows(DeletedBookException.class, () ->  bookServiceUnderTest.addCategoriesToBook(TOKEN_ADMIN, BOOK_ID, CATEGORIES));
+        assertThrows(DeletedBookException.class, () ->  bookServiceUnderTest.addCategoriesToBook(TOKEN_ADMIN, BOOK_ID, any()));
         verify(bookRepository, times(1)).findById(BOOK_ID);
         verify(categoryService, never()).save(any(Category.class));
         verify(bookRepository, never()).save(BOOK);
@@ -263,7 +263,7 @@ class BookServiceImplTest {
         BOOK.setIs_deleted(false);
 
         when(bookRepository.findById(eq(BOOK_ID))).thenReturn(Optional.of(BOOK));
-        when(categoryService.save(CATEGORIES.get(0))).thenThrow(DatabaseError.class);
+        when(categoryService.save(any(Category.class))).thenThrow(DatabaseError.class);
 
         assertThrows(DatabaseError.class, () -> bookServiceUnderTest.addCategoriesToBook(TOKEN_ADMIN, BOOK_ID, CATEGORIES));
         verify(bookRepository, times(1)).findById(BOOK_ID);

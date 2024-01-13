@@ -6,7 +6,6 @@ import com.master.bookstore_management.exceptions.exceptions.UnauthorizedUserExc
 import com.master.bookstore_management.exceptions.exceptions.UserNotLoggedInException;
 import com.master.bookstore_management.models.Author;
 import com.master.bookstore_management.repositories.author.AuthorRepository;
-import com.master.bookstore_management.token.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -217,7 +216,6 @@ class AuthorServiceImplTest {
         when(authorRepository.getAuthors()).thenThrow(DatabaseError.class);
         assertThrows(DatabaseError.class, () -> authorServiceUnderTest.getAuthors());
     }
-
 
     @Test
     void getAuthor() {
