@@ -5,7 +5,7 @@
 1. The admin can add, update and hard delete authors and categories.
 2. The user can get all the authors with their details from database or select just one based on his name. 
 3. The user can get all the categories. 
-4. The admin can add, update, soft delete and get all the books. 
+4. The admin can add, update, soft delete, link authors and categories to books and get all the books. 
 5. The user can see all the available books. 
 6. The user can filter books by author or by category. 
 7. The user can see his basket and submit an order. 
@@ -15,11 +15,174 @@
 
 ## <i>5 main features:</i>
 
-###
-###
-###
-###
-###
+<details><summary><b>Link an author to a book feature</b></summary>
+
+The link is made by added an author to book structure. The book is given by ID.
+
+<p align="center">
+  <img src="pictures/book structure.png" alt="book structure">
+</p>
+
+<br>
+
+<p align="center">
+  <img src="pictures/addAuthorToBook function.png" alt="addAuthorToBook function">
+</p>
+
+#### Verify if the user that wants to link is admin 
+The following three aspects are checked here: the existence of the token, its validity, and the user's role being ADMIN. Otherwise, the following errors are thrown in this order: `UserNotLoggedInException`, `InvalidTokenException`, `UnauthorizedUserException`.
+
+<p align="center">
+  <img src="pictures/jwtUtil.png" alt="jwtUtil">
+</p>
+
+#### Verify if book exists and if is deleted
+It is checked whether a book with the given ID exists in the database. If affirmative, the book is retained for modification; otherwise, a `NoSuchElementException` is thrown with the message "Book with this id not found."
+If the book has been soft-deleted, it cannot be modified because it is assumed to be deleted, meaning it no longer exists. In this case, a `DeletedBookException` is thrown with the error message "Cannot add author to a deleted book.".
+
+<p align="center">
+  <img src="pictures/getUserById.png" alt="getUserById">
+</p>
+
+#### Save the author
+The author is saved only if that author does not already exist in the database. Therefore, it is checked whether there is already one with the same first and last name. In this case, the author retrieved from the database is returned. Otherwise, the new author is inserted into the database, and then it is returned.
+
+<p align="center">
+  <img src="pictures/saveAuthor.png" alt="saveAuthor">
+</p>
+
+#### Link the author to the book
+At this point, we have the book and the author, and it remains only to specify that the author of the respective book is the one provided.
+The updated book is returned.
+
+</details>
+
+
+<details><summary><b>Insert a book or increase the number of copies of a book in a basket feature</b></summary>
+
+The feature is implemented through a single function because increasing the number of copies means starting with a single copy and incrementing the count. Therefore, if that book is not in the basket, it will be added, and if it exists, the count will be increased.
+
+The parameters provided are the token, the book's ID, and the basket's ID.
+
+<p align="center">
+  <img src="pictures/addBookInBasket_BookService.png" alt="addBookInBasket_BookService">
+</p>
+
+#### Verify if the user is logged in
+The following three aspects are checked here: the existence of the token and its validity. Otherwise, the following errors are thrown in this order: `UserNotLoggedInException`, `InvalidTokenException`.
+
+<p align="center">
+  <img src="pictures/decode_token.png" alt="decode_token">
+</p>
+<p align="center">
+  <img src="pictures/verify_if_loggedin.png" alt="verify_if_loggedin">
+</p>
+
+#### Verify if basket exists
+The code is straightforward; it checks if there is a basket in the database with the given ID. If affirmative, that value is retained for future modifications. If not, a `NoSuchElementException` is thrown with the message "Does not exist a basket with this id."
+
+
+#### Insert/increment the book in basket
+Moving forward, we need to consider the relationship between that book and the basket. Because it involves another table, a function with the same name is created in the service of the linking table. First and foremost, it checks if there is indeed a book with that given ID as a parameter. If yes, it checks whether that book is already in the basket. If not, a single copy is added to the basket; otherwise, the copy count is incremented by 1, and the modification is saved. The function returns the price of that book to add it later to the total price of the basket.
+
+<p align="center">
+  <img src="pictures/addBookInBasket_BookBaskeService.png" alt="addBookInBasket_BookBasketService">
+</p>
+
+### Increase in price of the basket and save the changes
+In the end, the returned price is added to the total price of the basket, the modification is saved, and the user's basket is returned.
+
+</details>
+
+
+<details><summary><b>Reducing the number of copies of a book from the basket or deleting the basket</b></summary>
+
+This feature is implemented through two different functions because the logic differs from the add-increment scenario. Incrementing means having a base count; if it doesn't exist, it is added. At the same time, if a book is added that already exists in the basket, its count is increased, i.e., incremented.
+
+On the other hand, now if I want to delete, I have to remove all copies, and to decrement, I have to remove just one (decrease the count). Let's assume that in the frontend, we have a "delete from basket" button. I can't decrease by 1 when the removal is requested. If, on the other hand, decrementing is desired, it is checked if there is only one copy, and if so, it is removed; otherwise, only one is subtracted.
+
+<p align="center">
+  <img src="pictures/removeBookFromBasket_BasketService.png" alt="removeBookFromBasket_BasketService">
+</p>
+<p align="center">
+  <img src="pictures/decrementBookToBasket_BasketService.png" alt="decrementBookToBasket_BasketService">
+</p>
+
+#### Verify if the user is logged in (common part)
+
+The user's role does not matter; what's important is that they have an account to place an order. Therefore, the first step is to check if they are logged in, meaning if there is a valid token.
+
+<p align="center">
+  <img src="pictures/decode_token.png" alt="decode_token">
+</p>
+<p align="center">
+  <img src="pictures/verify_if_loggedin.png" alt="verify_if_loggedin">
+</p>
+
+#### Verify if basket exists (common part)
+The code is straightforward; it checks if there is a basket in the database with the given ID. If affirmative, that value is retained for future modifications. If not, a `NoSuchElementException` is thrown with the message "Does not exist a basket with this id."
+
+#### Remove book from basket
+In the service of the associative table between books and baskets, the `removeBookToBasket` function was created. It takes the IDs of the book and the basket, checks if that book is in the basket, and if so, removes that book from the basket and returns the price of that book in the basket (number of books multiplied by the price of one book). If not, a `NoSuchElementException` is thrown with the message "The book is not in this basket."
+
+<p align="center">
+  <img src="pictures/removeBookToBasket_bookBasket.png" alt="removeBookToBasket_bookBasket">
+</p>
+
+#### Decrement book from basket
+In the service of the associative table between books and baskets, the `decrementBookFromBasket` function was created. It takes the IDs of the book and the basket, checks if that book is in the basket, and if so, removes that book from the basket if there was only one copy in the basket. If there are multiple copies, it decrements the count and saves the modification. In both cases, it returns the price of that book in the basket (number of books multiplied by the price of one book). If not, a `NoSuchElementException` is thrown with the message "The book is not in this basket."
+
+<p align="center">
+  <img src="pictures/decrementBookToBasket_BookBasket.png" alt="decrementBookToBasket_BookBasket">
+</p>
+
+#### Decrease in price of the basket and save the changes (common part)
+After returning the price, in both functions, the returned price is subtracted from the total price of the basket, the modification is saved, and the basket is returned.
+
+</details>
+
+
+<details><summary><b>Send order feature</b></summary>
+
+The function receives a token and a user ID as parameters and returns the basket for which the order has been placed.
+<p align="center">
+  <img src="pictures/sentOrder.png" alt="sentOrder">
+</p>
+
+#### Verify if the user is logged in
+
+The user's role does not matter; what's important is that they have an account to place an order. Therefore, the first step is to check if they are logged in, meaning if there is a valid token.
+
+<p align="center">
+  <img src="pictures/decode_token.png" alt="decode_token">
+</p>
+<p align="center">
+  <img src="pictures/verify_if_loggedin.png" alt="verify_if_loggedin">
+</p>
+
+#### Verify if an order can be sent
+In order to place an order, the user identified by their ID must have a basket (otherwise, a NoSuchElementException is thrown with the message "User does not have a current basket"), and this basket must contain at least one item (book). An order cannot be placed on an empty basket. The emptiness of the basket is checked by examining its total price. Assuming there are no books with a negative or zero price, if the total price is different from zero, it means there are books; otherwise, the same error is thrown again, but this time with the message "User does not have books in the basket."
+
+#### Make order
+After these steps, the order is fulfilled by setting the "sent" field in the basket to true. Thus, the order is assumed to be completed, and the next time a book is added, a new basket will be created. The modification is saved, and the user's basket is returned.
+
+</details>
+
+<details><summary><b>Admin can manage categories and authors.</b></summary>
+
+Management of categories and authors is similar. The user must have admin rights, meaning the ADMIN role, which will require a valid and authorized token..
+
+#### Create functionality
+In the create method, it is checked whether the new object to be inserted is new or a repeated one. For authors, it checks if there is already another author in the database with the same first and last name, and for categories, it checks if there is another one with the same category name. If affirmative, a new instance will not be added; instead, the existing one will be retained and returned.
+
+#### Update functionality
+For updating an object, it will first check if an object with that ID exists in the database; otherwise, it throws a NoSuchElementException with a suggestive message.
+
+In the case of authors, it updates the first name, last name, and nationality. For categories, it updates the category name. If a field is omitted in the JSON body, it is filled with null. The assumption is that in the case of an application with a frontend, all specified fields will be sent to the backend for execution, whether they have been modified or not.
+
+#### Delete functionality
+A hard delete with ON CASCADE is performed to delete the link with the books as well. There is no need for a soft delete because this data does not need to be retained, unlike data about books that may need to be kept for tracking past orders even after deletion.
+</details>
 
 
 ## <i>REST endpoints for all the features defined for the MVP</i>
