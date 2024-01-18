@@ -168,7 +168,7 @@ After these steps, the order is fulfilled by setting the "sent" field in the bas
 
 </details>
 
-<details><summary><b>Admin can manage categories and authors.</b></summary>
+<details><summary><b>Admin can manage categories and authors</b></summary>
 
 Management of categories and authors is similar. The user must have admin rights, meaning the ADMIN role, which will require a valid and authorized token..
 
