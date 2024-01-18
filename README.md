@@ -476,6 +476,19 @@ To add a parameter in the request header using *@RequestHeader* you should write
 </p>
 </details>
 
+<details><summary><b>How exceptions are thrown examples</b></summary>
+
+<p align="center">
+  <img src="pictures/thrown_exception_deletedBookException.png" alt="deletedBookException">
+</p>
+
+<br>
+
+<p align="center">
+  <img src="pictures/thrown_exception_noSuchElement.png" alt="noSuchElement">
+</p>
+</details>
+
 ### Example of thrown and caught exceptions 
 <details><summary><b>EmailAlreadyUsedException</b></summary>
 
